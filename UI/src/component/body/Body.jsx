@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { filterData } from "../../utils/helper";
 import useAllRestaurant from "../../utils/useallRestaurants";
 import useOnline from "../../utils/useOnline";
+import NotFound from "./NotFound";
 
 const Body = () => {
   const [flteredRestaurants, setfilteredRestaurants] = useState([]);
@@ -13,7 +14,12 @@ const Body = () => {
   const offline = useOnline();
   const PromotedRestaurantCard = withPromotedLabel(RestaurantCard);
 
-  if (!allRestaurants) return <div>dum dum</div>;
+  if (!allRestaurants)
+    return (
+      <div>
+        <NotFound />
+      </div>
+    );
 
   if (offline) {
     return <h1>Offline, please check your internet connection</h1>;

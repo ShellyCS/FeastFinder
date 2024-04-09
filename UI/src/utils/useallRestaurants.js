@@ -99,7 +99,7 @@ function useAllRestaurant(setfilteredRestaurants) {
       setfilteredRestaurants(mappedData);
     } catch (error) {
       console.error("Error fetching restaurants:", error);
-      // Handle the error here, such as displaying an error message to the user
+      setallRestaurants(undefined);
     }
   }
   return allRestaurants;
