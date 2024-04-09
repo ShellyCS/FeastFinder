@@ -6,14 +6,13 @@ import { additem } from "./../../ReduxSlice/cartSlice";
 
 const Section = ({ info }) => {
   const dispatch = useDispatch();
-  
+
   const handleAddItem = (item) => {
-    dispatch(additem(item))
-  }
+    dispatch(additem(item));
+  };
 
   return (
     <div className=" mt-4">
-      {/* Description */}
       <div className="flex flex-col text-left">
         {info.itemCards.map((item) => {
           const card = item.card.info;
@@ -26,7 +25,7 @@ const Section = ({ info }) => {
                 <h1 className="font-semibold tracking-wide text-md">
                   {card.name}{" "}
                   <span className="text-xs font-normal">
-                    PKR {card.price} /-
+                    {card.price ? "$" + card.price / 1000 : "$ 15.0"}
                   </span>
                 </h1>
                 <p className="font-normal text-xs tracking-wide text-gray-400 mt-2">
@@ -35,15 +34,18 @@ const Section = ({ info }) => {
               </div>
 
               <div className="relative 1/4">
-              <img
-                src={IMG_CDN_URL + card.imageId}
-                className="relative z-0  h-20 object-fill"
-              />
-              <button className="absolute z-10 top-14 translate-x-[70%] bg-white px-3 py-2 
+                <img
+                  src={IMG_CDN_URL + card.imageId}
+                  className="relative z-0  h-20 object-fill"
+                />
+                <button
+                  className="absolute z-10 top-14 translate-x-[70%] bg-white px-3 py-2 
               text-xs font-medium shadow-md  rounded-md "
-              onClick={()=>handleAddItem(item)}
-              >ADD</button>
-                </div>
+                  onClick={() => handleAddItem(item)}
+                >
+                  ADD
+                </button>
+              </div>
             </div>
           );
         })}
@@ -53,8 +55,6 @@ const Section = ({ info }) => {
 };
 
 const RestaurantCategory = ({ data, isVisible, setIsVisible }) => {
-
-
   return (
     <div className=" shadow-lg rounded-lg flex flex-col items-start p-4">
       {/* Header */}
