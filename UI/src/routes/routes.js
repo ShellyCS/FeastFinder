@@ -13,6 +13,7 @@ const AllRoutes = () => {
           {publicRoutes.map(({ path, element: Element }) => {
             return <Route path={path} element={<Element />} />;
           })}
+
           {commonRoutes.map(({ path, element: Element }) => {
             return <Route path={path} element={<Element />} />;
           })}
