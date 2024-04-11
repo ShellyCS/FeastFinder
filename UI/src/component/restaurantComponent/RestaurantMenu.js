@@ -13,11 +13,7 @@ const RestaurantMenu = () => {
   const [isVisible, setIsVisible] = useState();
 
   if (restaurants == null) return <Shimmer />;
-  console.log("uuu");
-  //   console.log(restaurants);
-  //   console.log(restaurants.cards);
   const restaurant = restaurants.cards[2].card.card.info;
-  console.log(restaurants);
 
   const categories =
     restaurants?.cards[4].groupedCard.cardGroupMap.REGULAR.cards.filter(
@@ -25,9 +21,6 @@ const RestaurantMenu = () => {
         singleCategory.card?.card?.["@type"] ==
         "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
     );
-
-  console.log("categoryyyy");
-  console.log(categories);
 
   return (
     <div className="w-full py-10">
