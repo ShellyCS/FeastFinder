@@ -9,13 +9,20 @@ const useRestaurant = (id) => {
   }, []);
 
   async function getRestaurantinfo() {
-    const data = await fetch(FETCH_MENU_URL + id);
-    console.log("data");
-    console.log(data);
-    const json = await data.json();
-    console.log("json");
-    console.log(json);
-    setrestaurant(json.data);
+    try {
+      const data = await fetch(FETCH_MENU_URL + id, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      console.log("data");
+      console.log(data);
+      const json = await data.json();
+      console.log("json");
+      console.log(json);
+      setrestaurant(json.data);
+    } catch (error) {
+      console.log({ error });
+    }
   }
 
   return restaurant;

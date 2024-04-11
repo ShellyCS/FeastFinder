@@ -11,10 +11,7 @@ const RestaurantMenu = () => {
   const [isVisible, setIsVisible] = useState();
 
   if (restaurants == null) return <Shimmer />;
-  //   console.log(restaurants);
-  //   console.log(restaurants.cards);
   const restaurant = restaurants.cards[2].card.card.info;
-  console.log(restaurants);
 
   const categories =
     restaurants?.cards[4].groupedCard.cardGroupMap.REGULAR.cards.filter(
