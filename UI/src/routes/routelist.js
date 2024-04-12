@@ -29,7 +29,7 @@ const commonRoutes = [
     label: "Contact",
   },
   {
-    path: "/menu/:id",
+    path: "/restaurantmenu/:id",
     element: Menu,
     label: "Menu",
     disableInNavbar: true,

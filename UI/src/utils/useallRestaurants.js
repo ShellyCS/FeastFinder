@@ -34,6 +34,7 @@ function useAllRestaurant(setfilteredRestaurants) {
       //       ?.restaurants
       //   );
 
+      // added a mapper func
       const data = await fetch("http://localhost:8081/restaurants");
       const json = await data.json();
       const mappedData = json.map((item) => ({
@@ -93,8 +94,6 @@ function useAllRestaurant(setfilteredRestaurants) {
           restaurantOfferPresentationInfo: {},
         },
       }));
-      console.log("kjdjibjdij");
-      console.log(mappedData);
       setallRestaurants(mappedData);
       setfilteredRestaurants(mappedData);
     } catch (error) {

@@ -54,8 +54,10 @@ const Body = () => {
           <h1>No Restaurant match your filter</h1>
         ) : (
           flteredRestaurants.map((restaurant, ind) => (
-            <Link to={"/menu/" + restaurant.info.id} key={restaurant?.info.id}>
-              {/* if restaurant is promoted then add a promoted label to it */}
+            <Link
+              to={"/restaurantmenu/" + restaurant.info.id}
+              key={restaurant?.info.id}
+            >
               {restaurant?.info.promoted ? (
                 <PromotedRestaurantCard
                   {...restaurant.info}

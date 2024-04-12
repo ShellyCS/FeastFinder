@@ -115,6 +115,69 @@ app.post("/signup", async (req, res) => {
   }
 });
 
+app.get("/restaurant_info", async (req, res) => {
+  try {
+    const [info] = await db.query("SELECT * FROM restaurant_info");
+    res.json(info);
+  } catch (error) {
+    console.error("Error in fetching restuarant detail", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.get("/dishes", (req, res) => {
+  db.query("SELECT * FROM Dishes", (error, results, fields) => {
+    if (error) {
+      console.error("Error fetching dishes data:", error);
+      res.status(500).json({ error: "Internal server error!" });
+      return;
+    }
+    const a = results.map((data) => console.log(data));
+    // Map the results to the specified JSON format
+    const mappedData = results.map((item) => ({
+      card: {
+        card: {
+          "@type":
+            "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+          title: item.categoryName,
+          restaurantId: item.restaurantId,
+          itemCards: [
+            {
+              "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+              analytics: {},
+              hideRestaurantDetails: true,
+              info: {
+                badgesV2: {},
+              },
+              category: item.categoryName,
+              defaultPrice: item.defaultPrice,
+              description: item.description,
+              id: item.id,
+              imageId: item.imageId,
+              isVeg: item.isVeg,
+              itemAttribute: item.itemAttribute,
+              itemBadge: {},
+              itemPriceStrikeOff: true,
+              name: item.name,
+              ratings: {
+                aggregatedRating: {},
+              },
+              ribbon: {},
+              showImage: true,
+              variants: {},
+              variantsV2: {
+                variantGroups: [],
+                pricingModels: [],
+              },
+            },
+          ],
+        },
+      },
+    }));
+    res.json(mappedData);
+  });
+});
+
 app.listen(8081, () => {
   console.log("listening...");
 });

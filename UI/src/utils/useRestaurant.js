@@ -9,20 +9,30 @@ const useRestaurant = (id) => {
   }, []);
 
   async function getRestaurantinfo() {
-    try {
-      const data = await fetch(FETCH_MENU_URL + id, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
-      console.log("data");
-      console.log(data);
-      const json = await data.json();
-      console.log("json");
-      console.log(json);
-      setrestaurant(json.data);
-    } catch (error) {
-      console.log({ error });
-    }
+    // const data = await fetch(FETCH_MENU_URL + id);
+    // console.log("data");
+    // console.log(data);
+    // const json = await data.json();
+    // console.log("json");
+    // console.log(json);
+    // setrestaurant(json.data);
+
+    const data = await fetch("http://localhost:8081/restaurant_info");
+    const json = await data.json();
+    console.log(json);
+    setrestaurant(json);
+
+    // const groupedByTitle = json.reduce((acc, obj) => {
+    //   const title = obj.card.card.title;
+    //   if (!acc[title]) {
+    //     acc[title] = [];
+    //   }
+    //   acc[title].push(obj.card.card.itemCards[0]);
+    //   return acc;
+    // }, {});
+
+    // setrestaurant(groupedByTitle);
+    // console.log(groupedByTitle);
   }
 
   return restaurant;

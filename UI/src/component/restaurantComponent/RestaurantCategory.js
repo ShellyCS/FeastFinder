@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import { additem } from "./../../ReduxSlice/cartSlice";
 
 const Section = ({ info }) => {
+  console.log("oooooo");
+  console.log(info);
   const dispatch = useDispatch();
 
   const handleAddItem = (item) => {

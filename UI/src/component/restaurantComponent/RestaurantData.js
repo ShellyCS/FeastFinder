@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { CORS_API, REST_API } from '../body/config'
-import Shimmer from "./../body/Shimmer"
-import Carousal from './Crousal'
+import React, { useEffect, useState } from "react";
+import { CORS_API, REST_API } from "../body/config";
+import Shimmer from "./../body/Shimmer";
+import Carousal from "./Crousal";
 
 const Restaurantdata = () => {
   const [title, setTitle] = useState("");
@@ -22,14 +22,16 @@ const Restaurantdata = () => {
 
       // Extracting data from JSON
       const newTitle = json?.data?.cards[0]?.card?.card?.header?.title;
-      const newData =  json?.data?.cards[0]?.card?.card?.imageGridCards?.info
+      const newData = json?.data?.cards[0]?.card?.card?.imageGridCards?.info;
 
+      console.log("****");
+      console.log(newTitle);
+      console.log(newData);
       // Setting state
       setTitle(newTitle);
       setData(newData);
-      //console.log(setData);
     } catch (error) {
-      console.error('Fetch error:', error);
+      console.error("Fetch error:", error);
     }
   };
 
@@ -43,9 +45,7 @@ const Restaurantdata = () => {
       <div className="slider lg:px-16 lg:my-10 md:px-16 my-3 md:my-5 w-full pt-3">
         <div className="w-full lg:pb-2 md:pb-2 pb-2 pt-2">
           {data && (
-            <span
-              className="w-full text-left lg:pb-6  md:pb-6  mt-4 font-black lg:text-2xl md:text-2xl text-xl tracking-tight"
-            >
+            <span className="w-full text-left lg:pb-6  md:pb-6  mt-4 font-black lg:text-2xl md:text-2xl text-xl tracking-tight">
               {title || "What's on your mind?"}
             </span>
           )}
@@ -58,7 +58,6 @@ const Restaurantdata = () => {
         </div>
         <hr className="my-8 border-t border-gray-300" />
       </div>
-      
     </>
   );
 };

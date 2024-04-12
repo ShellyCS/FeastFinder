@@ -6,23 +6,35 @@ import Shimmer from "../body/Shimmer";
 import RestaurantCategory from "./RestaurantCategory";
 
 const RestaurantMenu = () => {
+  debugger;
   const { id } = useParams();
   const restaurants = useRestaurant(id);
   const [isVisible, setIsVisible] = useState();
 
   if (restaurants == null) return <Shimmer />;
-  const restaurant = restaurants.cards[2].card.card.info;
+  let restaurant;
+  restaurants.find((data) => {
+    console.log(data);
+    if (data.restaurantId === id) {
+      restaurant = data;
+    }
+  });
 
-  const categories =
-    restaurants?.cards[4].groupedCard.cardGroupMap.REGULAR.cards.filter(
-      (singleCategory) =>
-        singleCategory.card?.card?.["@type"] ==
-        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
-    );
+  // const categories =
+  //   restaurants?.cards[4].groupedCard.cardGroupMap.REGULAR.cards.filter(
+  //     (singleCategory) =>
+  //       singleCategory.card?.card?.["@type"] ==
+  //       "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+  //   );
+  const categories = restaurants;
 
+  console.log("categories");
+  console.log(categories);
+
+  // Add a mapper function to generate categories
   return (
     <div className="w-full py-10">
-      <div className="flex flex-col items-start w-96 m-auto md:w-[700px]  bg-white border-2 border-gray-200 rounded-lg   hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+      <div className="flex flex-col items-start w-96 m-auto md:w-[400px] bg-white border-2 border-gray-200 rounded-lg   hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <img
           className="object-contain p-2 rounded-xl w-full"
           src={IMG_CDN_URL + restaurant?.cloudinaryImageId}
@@ -54,7 +66,7 @@ const RestaurantMenu = () => {
           </h2>
         </div>
       </div>
-      <div className="flex flex-col gap-4 py-10 w-96 m-auto md:w-[700px] ">
+      {/* <div className="flex flex-col gap-4 py-10 w-96 m-auto md:w-[700px] ">
         {categories.map((singleCategory) => (
           <RestaurantCategory
             key={singleCategory.card.card.title}
@@ -63,7 +75,7 @@ const RestaurantMenu = () => {
             setIsVisible={setIsVisible}
           />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };
