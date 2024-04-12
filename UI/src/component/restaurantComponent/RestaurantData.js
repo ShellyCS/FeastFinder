@@ -24,9 +24,6 @@ const Restaurantdata = () => {
       const newTitle = json?.data?.cards[0]?.card?.card?.header?.title;
       const newData = json?.data?.cards[0]?.card?.card?.imageGridCards?.info;
 
-      console.log("****");
-      console.log(newTitle);
-      console.log(newData);
       // Setting state
       setTitle(newTitle);
       setData(newData);

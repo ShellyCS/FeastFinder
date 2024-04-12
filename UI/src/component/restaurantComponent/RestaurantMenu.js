@@ -6,7 +6,6 @@ import Shimmer from "../body/Shimmer";
 import RestaurantCategory from "./RestaurantCategory";
 
 const RestaurantMenu = () => {
-  debugger;
   const { id } = useParams();
   const restaurants = useRestaurant(id);
   const [isVisible, setIsVisible] = useState();
@@ -14,7 +13,6 @@ const RestaurantMenu = () => {
   if (restaurants == null) return <Shimmer />;
   let restaurant;
   restaurants.find((data) => {
-    console.log(data);
     if (data.restaurantId === id) {
       restaurant = data;
     }
