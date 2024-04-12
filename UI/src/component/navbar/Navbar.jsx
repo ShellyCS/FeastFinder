@@ -1,88 +1,171 @@
-import React,{useContext,useState} from "react";
-import Logo from "../../assets/img/logo.png";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import UserContext from "../../utils/UserContext"
-
+import React, { useContext, useEffect, useState } from "react";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import Fade from "@mui/material/Fade";
+import Typography from "@mui/material/Typography";
+import Popper from "@mui/material/Popper";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useTheme } from "@mui/material/styles";
+import { useSnackbar } from "notistack";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  commonRoutes,
+  privateRouteList,
+  publicRoutes,
+} from "../../routes/routelist";
+import { logoutUser } from "../../utils/UserSlice";
 const Navbar = () => {
-  // subscribing to the store
-  const cart = useSelector((store) => store.cart.items);
-  const {loggedInUser} = useContext(UserContext);
-  const [loginUser , setLoginUser] = useState(false)
+  const user = useSelector((state) => state.user);
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
+  const theme = useTheme();
+  const handleRouteChange = (path) => {
+    navigate(path);
+  };
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
+
+  const userLoggedIn = user.loggedIn && user.email;
+
+  const handleLogoutPopper = (event) => {
+    setAnchorEl(event.currentTarget);
+    setOpen((prev) => !prev);
+  };
+  const handleLogout = () => {
+    setAnchorEl(null);
+    setOpen((prev) => !prev);
+    dispatch(logoutUser({ loggedIn: false }));
+    enqueueSnackbar(`Successfully Logged Off`, {
+      variant: "success",
+    });
+  };
+  useEffect(() => {
+    if (userLoggedIn && location.pathname === "/login") {
+      navigate("/");
+    }
+  }, [location.pathname]);
   return (
-    <>
-      <nav className="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <img src={Logo} alt="logo" className="w-24" />
-
-          <div
-            className="hidden w-full md:block md:w-auto"
-            id="navbar-solid-bg"
-          >
-            <ul className="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700">
-              <li>
-                <Link
-                  to="/"
-                  className="block py-2 pl-3 pr-4 text-white bg-orange-700 rounded md:bg-transparent md:text-orange-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent"
-                  aria-current="page"
+    <Grid
+      container
+      spacing={2}
+      alignItems={"center"}
+      justifyContent={"space-around"}
+      style={{
+        background: theme.palette.background.default,
+        padding: "10px 20px 10px 10px",
+      }}
+    >
+      <Grid item xs={6}>
+        <img src={"./logo.png"} alt="logo" width={80} />
+      </Grid>
+      <Grid item xs={6}>
+        <Grid container justifyContent={"flex-end"} spacing={1}>
+          {commonRoutes.map(({ path, label, disableInNavbar }) => {
+            if (disableInNavbar) {
+              return true;
+            }
+            return (
+              <Grid item>
+                <Button
+                  color={location.pathname === path ? "primary" : "secondary"}
+                  onClick={() => handleRouteChange(path)}
                 >
-                  Home
-                </Link>
-              </li>
-              {/* <li>
-                <Link
-                  to="/about"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  About
-                </Link>
-              </li> */}
-              <li>
-                <Link
-                  to="/contact"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/instamart"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  Insta Mart
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/cart"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  Cart {cart.length} items
-                </Link>
-              </li>
-              <li className="flex gap-2">
-                <button>
-                {
-                  loginUser ? 
-                  <p>{loggedInUser}</p>:
-                  <button onClick={()=>setLoginUser(true)}>Login</button>
+                  {label}
+                </Button>
+              </Grid>
+            );
+          })}
+          {userLoggedIn ? (
+            <React.Fragment>
+              {privateRouteList.map(({ path, label, disableInNavbar }) => {
+                if (disableInNavbar) {
+                  return true;
                 }
-                </button>
-                <button onClick={()=>setLoginUser(false)}>
-                  {
-                    loginUser ? 
-                    <p>Logout</p>:
-                    null
-                  }
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </>
+                return (
+                  <Grid item>
+                    <Button
+                      color={
+                        location.pathname === path ? "primary" : "secondary"
+                      }
+                      onClick={() => handleRouteChange(path)}
+                    >
+                      {label}
+                    </Button>
+                  </Grid>
+                );
+              })}
+              <Grid item>
+                <Button
+                  style={{
+                    cursor: "pointer",
+                    fontSize: "12px",
+                    marginTop: "2px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                  variant="contained"
+                  onClick={handleLogoutPopper}
+                >
+                  <Typography
+                    style={{
+                      fontSize: "12px",
+                    }}
+                  >
+                    {user.firstName}
+                  </Typography>
+                  <AccountCircleIcon
+                    style={{
+                      marginLeft: "5px",
+                      fontSize: "15px",
+                    }}
+                  />
+                </Button>
+                <Popper
+                  sx={{ zIndex: 1200 }}
+                  open={open}
+                  anchorEl={anchorEl}
+                  placement="bottom"
+                  transition
+                >
+                  {({ TransitionProps }) => (
+                    <Fade {...TransitionProps} timeout={350}>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        style={{ marginTop: "5px" }}
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </Button>
+                    </Fade>
+                  )}
+                </Popper>
+              </Grid>
+            </React.Fragment>
+          ) : (
+            publicRoutes.map(({ path, label, disableInNavbar }) => {
+              if (disableInNavbar) {
+                return true;
+              }
+              return (
+                <Grid item>
+                  <Button
+                    color={location.pathname === path ? "primary" : "secondary"}
+                    onClick={() => handleRouteChange(path)}
+                  >
+                    {label}
+                  </Button>
+                </Grid>
+              );
+            })
+          )}
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 
