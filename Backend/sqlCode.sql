@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS users (
     FirstName VARCHAR(50) NOT NULL,
     LastName VARCHAR(50) NOT NULL,
     Email VARCHAR(100) NOT NULL UNIQUE,
-    password VARCHAR(50) NOT NULL 
+    password VARCHAR(100) NOT NULL 
 );
 
 -- Creating MenuCategory table

@@ -52,10 +52,10 @@ app.post("/login", async (req, res) => {
     const [results] = await db.query("SELECT * FROM users WHERE email = ?", [
       email,
     ]);
-    console.log({ results });
-    if (results.length === 0) {
-      return res.status(401).json({ error: "Invalid email or password" });
+    if (results[0].Email !== email) {
+      return res.status(401).json({ error: "Email Doesn't Exist" });
     }
+
     const user = results[0];
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
@@ -90,15 +90,10 @@ app.post("/signup", async (req, res) => {
       .json({ error: "Please fill in all required fields" });
   }
   try {
-    const users = await db.query("SELECT * FROM users WHERE email = ?", [
-      email,
-    ]);
-    console.log({ users });
-    const existingUser = await db.query("SELECT * FROM users WHERE email = ?", [
-      email,
-    ]);
-
-    if (existingUser.length > 2) {
+    const existingUser = (
+      await db.query("SELECT * FROM users WHERE email = ?", [email])
+    ).filter((item) => !item);
+    if (existingUser.length > 1) {
       return res.status(409).json({ error: "Email address already in use" });
     }
     const hashedPassword = await hashPassword(password);
@@ -111,7 +106,7 @@ app.post("/signup", async (req, res) => {
     res.status(201).json({ message: "User created successfully!" });
   } catch (error) {
     console.error("Error creating user:", error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: error.message || "Internal server error" });
   }
 });
 
