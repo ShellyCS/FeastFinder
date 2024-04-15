@@ -10,6 +10,9 @@ import { emailRegex, passwordRegex } from "../../utils";
 import { postRequest } from "../../api";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { auth } from "../../firebase/firebase";
+import GoogleIcon from "@mui/icons-material/Google";
 
 const SignUp = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -27,6 +30,45 @@ const SignUp = () => {
     email: "",
     confirmPassword: "",
   });
+
+  const handleSignUpApi = async ({ firstName, lastName, email, password }) => {
+    const data = await postRequest({
+      currentRoute: "/signup",
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: {
+        firstName,
+        lastName,
+        email,
+        password,
+      },
+    });
+    if (data.error) {
+      enqueueSnackbar(data.error, { variant: "error" });
+    } else if (data.message) {
+      navigate("/login");
+      enqueueSnackbar(data.message, {
+        variant: "success",
+      });
+    }
+  };
+
+  const handleGoogleSignUp = async () => {
+    try {
+      const googleProvider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      const [firstName, lastName] = user.displayName.split(" ");
+      await handleSignUpApi({
+        firstName,
+        lastName,
+        email: user.email,
+        password: user.uid,
+      });
+    } catch (error) {
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
+  };
 
   const handleSignUp = async () => {
     const email = emailRef.current.value.trim();
@@ -65,25 +107,7 @@ const SignUp = () => {
     setErrors(newErrors);
 
     if (Object.values(newErrors).every((error) => error === "")) {
-      const data = await postRequest({
-        currentRoute: "/signup",
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: {
-          firstName,
-          lastName,
-          email,
-          password,
-        },
-      });
-      if (data.error) {
-        enqueueSnackbar(data.error, { variant: "error" });
-      } else if (data.message) {
-        navigate("/login");
-        enqueueSnackbar(data.message, {
-          variant: "success",
-        });
-      }
+      await handleSignUpApi({ firstName, lastName, email, password });
     }
   };
   return (
@@ -188,9 +212,7 @@ const SignUp = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item>
-              <Divider>Or</Divider>
-            </Grid>
+
             <Grid item>
               <Grid
                 container
@@ -209,6 +231,24 @@ const SignUp = () => {
                     {" "}
                     Login
                   </Link>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Grid container justifyContent={"center"} alignItems={"center"}>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    onClick={handleGoogleSignUp}
+                    color="primary"
+                  >
+                    <Grid container spacing={1}>
+                      <Grid item>
+                        <GoogleIcon />
+                      </Grid>
+                      <Grid item> Sign Up with Google</Grid>
+                    </Grid>
+                  </Button>
                 </Grid>
               </Grid>
             </Grid>

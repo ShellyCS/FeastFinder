@@ -11,7 +11,9 @@ import { postRequest } from "../../api";
 import { useSnackbar } from "notistack";
 import { useDispatch } from "react-redux";
 import { loginUser, logoutUser } from "../../utils/UserSlice";
-
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { auth } from "../../firebase/firebase";
+import GoogleIcon from "@mui/icons-material/Google";
 const Login = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
@@ -21,6 +23,52 @@ const Login = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const [errors, setErrors] = useState({ email: "", password: "" });
+
+  const handleLoginApi = async ({ email, password, fromGoogleAuth }) => {
+    const data = await postRequest({
+      currentRoute: "/login",
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: {
+        email,
+        password,
+        fromGoogleAuth,
+      },
+    });
+    if (data.error) {
+      enqueueSnackbar(data.error, { variant: "error" });
+      dispatch(logoutUser({ loggedIn: false }));
+    } else if (data.token) {
+      enqueueSnackbar(`Welcome ${data.firstName} ${data.lastName}`, {
+        variant: "success",
+      });
+      dispatch(
+        loginUser({
+          firstName: data.firstName,
+          lastName: data.lastName,
+          token: data.token,
+          loggedIn: true,
+          email: data.email,
+        })
+      );
+      navigate("/");
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      const googleProvider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      await handleLoginApi({
+        email: user.email,
+        password: user.uid,
+        fromGoogleAuth: true,
+      });
+    } catch (error) {
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
+  };
   const handleLogin = async () => {
     const email = emailRef.current.value.trim();
     const password = passwordRef.current.value.trim();
@@ -35,33 +83,7 @@ const Login = () => {
     }
     setErrors(newErrors);
     if (Object.values(newErrors).every((error) => error === "")) {
-      const data = await postRequest({
-        currentRoute: "/login",
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: {
-          email,
-          password,
-        },
-      });
-      if (data.error) {
-        enqueueSnackbar(data.error, { variant: "error" });
-        dispatch(logoutUser({ loggedIn: false }));
-      } else if (data.token) {
-        enqueueSnackbar(`Welcome ${data.firstName} ${data.lastName}`, {
-          variant: "success",
-        });
-        dispatch(
-          loginUser({
-            firstName: data.firstName,
-            lastName: data.lastName,
-            token: data.token,
-            loggedIn: true,
-            email: data.email,
-          })
-        );
-        navigate("/");
-      }
+      await handleLoginApi({ email, password });
     }
   };
   return (
@@ -147,6 +169,24 @@ const Login = () => {
                     {" "}
                     SignUp
                   </Link>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Grid container justifyContent={"center"} alignItems={"center"}>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    onClick={handleGoogleLogin}
+                    color="primary"
+                  >
+                    <Grid container spacing={1}>
+                      <Grid item>
+                        <GoogleIcon />
+                      </Grid>
+                      <Grid item>Login with Google</Grid>
+                    </Grid>
+                  </Button>
                 </Grid>
               </Grid>
             </Grid>
