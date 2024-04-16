@@ -62,7 +62,7 @@ const Navbar = () => {
       }}
     >
       <Grid item xs={6}>
-        <img src={logo} alt="logo" width={60} />
+        <img src={logo} alt="logo" width={60} height={"auto"} />
       </Grid>
       <Grid item xs={6}>
         <Grid container justifyContent={"flex-end"} spacing={1}>
