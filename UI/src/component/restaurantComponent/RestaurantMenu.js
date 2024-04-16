@@ -11,12 +11,14 @@ const RestaurantMenu = () => {
   const [isVisible, setIsVisible] = useState();
 
   if (restaurants == null) return <Shimmer />;
-  let restaurant;
-  restaurants.find((data) => {
-    if (data.restaurantId === id) {
-      restaurant = data;
-    }
-  });
+  let restaurant = {};
+  if (Array.isArray(restaurants) && restaurant.length > 0) {
+    restaurants.find((data) => {
+      if (data.restaurantId === id) {
+        restaurant = data;
+      }
+    });
+  }
 
   // const categories =
   //   restaurants?.cards[4].groupedCard.cardGroupMap.REGULAR.cards.filter(
