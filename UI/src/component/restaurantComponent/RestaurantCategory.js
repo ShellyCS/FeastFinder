@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { IMG_CDN_URL } from "../body/config";
@@ -16,11 +17,11 @@ const Section = ({ info }) => {
   return (
     <div className=" mt-4">
       <div className="flex flex-col text-left">
-        {info.itemCards.map((item) => {
-          const card = item.card.info;
+        {info.itemCards.map((item, index) => {
+          const card = item;
           return (
             <div
-              key={card.id}
+              key={index}
               className="text-gray-600 flex flex-col md:flex-row gap-4 border-b-[1px] border-gray-600 py-2 px-6"
             >
               <div className="flex flex-col w-3/4">
@@ -57,28 +58,28 @@ const Section = ({ info }) => {
 };
 
 const RestaurantCategory = ({ data, isVisible, setIsVisible }) => {
+  console.log(data);
   return (
     <div className=" shadow-lg rounded-lg flex flex-col items-start p-4">
       {/* Header */}
 
       <div className="flex justify-between w-full">
         <h1 className="font-medium text-lg">
-          {data.card.title} ({data.card.itemCards.length})
+          {data.title} ({data.itemCards.length})
         </h1>
-        {/* Show / Hide Button  */}
         <button
           onClick={() => {
-            isVisible == data.card.title
+            isVisible == data.title
               ? setIsVisible("")
-              : setIsVisible(data.card.title);
+              : setIsVisible(data.title);
           }}
           className=""
         >
-          {isVisible == data.card.title ? <ChevronUp /> : <ChevronDown />}
+          {isVisible == data.title ? <ChevronUp /> : <ChevronDown />}
         </button>
       </div>
 
-      {isVisible == data.card.title ? <Section info={data.card} /> : null}
+      {isVisible == data.title ? <Section info={data} /> : null}
     </div>
   );
 };

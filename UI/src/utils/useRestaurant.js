@@ -21,18 +21,6 @@ const useRestaurant = (id) => {
     const json = await data.json();
     console.log(json);
     setrestaurant(json);
-
-    // const groupedByTitle = json.reduce((acc, obj) => {
-    //   const title = obj.card.card.title;
-    //   if (!acc[title]) {
-    //     acc[title] = [];
-    //   }
-    //   acc[title].push(obj.card.card.itemCards[0]);
-    //   return acc;
-    // }, {});
-
-    // setrestaurant(groupedByTitle);
-    // console.log(groupedByTitle);
   }
 
   return restaurant;
