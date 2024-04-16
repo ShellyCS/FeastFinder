@@ -60,7 +60,11 @@ const Navbar = () => {
       }}
     >
       <Grid item xs={6}>
+<<<<<<< Updated upstream
         <img src={"./logo.png"} alt="logo" width={80} />
+=======
+        <img src={logo} alt="logo" width={60} />
+>>>>>>> Stashed changes
       </Grid>
       <Grid item xs={6}>
         <Grid container justifyContent={"flex-end"} spacing={1}>
