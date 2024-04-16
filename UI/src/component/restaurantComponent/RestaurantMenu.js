@@ -23,27 +23,8 @@ const RestaurantMenu = () => {
     });
   }
 
-  console.log("res");
-  console.log(restaurant);
-
-  console.log("dishes");
-  console.log(dishes);
-  // const categories =
-  //   restaurants?.cards[4].groupedCard.cardGroupMap.REGULAR.cards.filter(
-  //     (singleCategory) =>
-  //       singleCategory.card?.card?.["@type"] ==
-  //       "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
-  //   );
-
-  // console.log("categories");
-  // if (categories !== undefined) {
-  //   categories = Object.values(categories);
-  // }
-  // console.log(categories);
-  // console.log(JSON.stringify(categories));
-
   if (dishes !== null) {
-    const newArr = dishes.reduce((acc, dish) => {
+    const structureDishes = dishes.reduce((acc, dish) => {
       const struc = {
         itemCards: [dish],
         title: dish.categoryName,
@@ -51,11 +32,8 @@ const RestaurantMenu = () => {
       acc.push(struc);
       return acc;
     }, []);
-    console.log("categories");
-    console.log(newArr);
-    // console.log(JSON.stringify(newArr));
 
-    categories = newArr.reduce((acc, curr) => {
+    categories = structureDishes.reduce((acc, curr) => {
       const title = curr.title;
       const existingCategory = acc.find((category) => category.title === title);
 
@@ -70,12 +48,8 @@ const RestaurantMenu = () => {
 
       return acc;
     }, []);
-
-    console.log("categories");
-    console.log(categories);
   }
 
-  // Add a mapper function to generate categories
   return (
     <div className="w-full py-10">
       <div className="flex flex-col items-start w-96 m-auto md:w-[400px] bg-white border-2 border-gray-200 rounded-lg   hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
@@ -111,15 +85,6 @@ const RestaurantMenu = () => {
         </div>
       </div>
       <div className="flex flex-col gap-4 py-10 w-96 m-auto md:w-[700px] ">
-        {/* {categories.map((singleCategory) => (
-          <RestaurantCategory
-            key={singleCategory.card.card.title}
-            data={singleCategory.card}
-            isVisible={isVisible}
-            setIsVisible={setIsVisible}
-          />
-        ))} */}
-
         {categories !== undefined &&
           categories.map((singleCategory) => (
             <RestaurantCategory
@@ -129,79 +94,9 @@ const RestaurantMenu = () => {
               setIsVisible={setIsVisible}
             />
           ))}
-
-        {/* {categories !== undefined &&
-          categories.map((categoryKey, index) => {
-            return (
-              <RestaurantCategory
-                key={categoryKey[0].categoryName}
-                data={categoryKey}
-                isVisible={isVisible}
-                setIsVisible={setIsVisible}
-              />
-            );
-          })} */}
       </div>
     </div>
   );
 };
 
 export default RestaurantMenu;
-
-/**
- * 
- * 
- * 
-  categories = [
-    {
-    itemCards : [
-      {categoryId: 1,
-      categoryName:"Recommended",
-      description:"Serves 1 | Combo for one (Rice/Noodle Bowl with choice of Veg Gravy, Veg Momos & Drinks)",
-      dishId:3,
-      imageId:"3e4f7ca32bf517b390f1cb3205b892e4",
-      isVeg: 1,
-      name:"Combo for 1 Veg",
-      price:"359.00",
-      restaurantId:28408
-    },
-      {categoryId: 1,
-      categoryName:"Recommended",
-      description:"Serves 12| Combo for one rice",
-      dishId:3,
-      imageId:"3e4f7ca32bf517b390f1cb3205b2r3e4",
-      isVeg: 0,
-      name:"Combo for 2 Veg",
-      price:"900.00",
-      restaurantId:28408
-      }],
-      title: "Recommended",
-    },
-    {
-      itemCards: [
-        {categoryId: 1,
-      categoryName:"Pot Rice",
-      description:"Rice Ricotta",
-      dishId:3,
-      imageId:"3e4f7c232323232323cb3205b892e4",
-      isVeg: 1,
-      name:"Mix veg",
-      price:"159.00",
-      restaurantId:28408
-    },
-      {categoryId: 1,
-      categoryName:"Pot Rice",
-      description:"Onion rice",
-      dishId:3,
-      imageId:"3e4f7ca32bffesrf43343wf1cb3205b2r3e4",
-      isVeg: 0,
-      name:"Combo for 1 Veg",
-      price:"862.00",
-      restaurantId:28408
-      }],
-      title: "Recommended",
-    },
-      ],
-      title: "Pot Rice"
-    }]
- */

@@ -6,8 +6,6 @@ import { useDispatch } from "react-redux";
 import { additem } from "./../../ReduxSlice/cartSlice";
 
 const Section = ({ info }) => {
-  console.log("oooooo");
-  console.log(info);
   const dispatch = useDispatch();
 
   const handleAddItem = (item) => {
@@ -58,7 +56,6 @@ const Section = ({ info }) => {
 };
 
 const RestaurantCategory = ({ data, isVisible, setIsVisible }) => {
-  console.log(data);
   return (
     <div className=" shadow-lg rounded-lg flex flex-col items-start p-4">
       {/* Header */}
