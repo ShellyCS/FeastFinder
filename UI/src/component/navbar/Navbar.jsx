@@ -15,6 +15,8 @@ import {
   publicRoutes,
 } from "../../routes/routelist";
 import { logoutUser } from "../../utils/UserSlice";
+import logo from "../../assets/applogo.png";
+
 const Navbar = () => {
   const user = useSelector((state) => state.user);
   const location = useLocation();
@@ -60,7 +62,7 @@ const Navbar = () => {
       }}
     >
       <Grid item xs={6}>
-        <img src={"./logo.png"} alt="logo" width={80} />
+        <img src={logo} alt="logo" width={80} />
       </Grid>
       <Grid item xs={6}>
         <Grid container justifyContent={"flex-end"} spacing={1}>
