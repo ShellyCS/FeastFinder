@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { IMG_CDN_URL } from "../body/config";
 import useRestaurant from "./../../utils/useRestaurant";
 import Shimmer from "../body/Shimmer";
@@ -11,6 +11,7 @@ const RestaurantMenu = () => {
   const restaurants = useRestaurant(id);
   const dishes = useDishes(id);
   const [isVisible, setIsVisible] = useState();
+  const navigate = useNavigate();
   let categories;
 
   if (restaurants == null) return <Shimmer />;
@@ -53,8 +54,18 @@ const RestaurantMenu = () => {
     }, []);
   }
 
+  const backfunc = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="w-full py-10">
+      <button
+        className="z-10 top-14 translate-x-[70%] bg-white px-3 py-2 text-md font-medium shadow-md rounded-md hover:bg-gray-100 border-transparent rounded"
+        onClick={backfunc}
+      >
+        Back
+      </button>
       <div className="flex flex-col items-start w-96 m-auto md:w-[400px] bg-white border-2 border-gray-200 rounded-lg   hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <img
           className="object-contain p-2 rounded-xl w-full"
