@@ -34,19 +34,22 @@ const RestaurantMenu = () => {
     }, []);
 
     categories = structureDishes.reduce((acc, curr) => {
-      const title = curr.title;
-      const existingCategory = acc.find((category) => category.title === title);
+      if (+restaurant.restaurantId === curr.itemCards[0].restaurantId) {
+        const title = curr.title;
+        const existingCategory = acc.find(
+          (category) => category.title === title
+        );
 
-      if (existingCategory) {
-        existingCategory.itemCards.push(curr.itemCards[0]);
-      } else {
-        acc.push({
-          title: title,
-          itemCards: curr.itemCards,
-        });
+        if (existingCategory) {
+          existingCategory.itemCards.push(curr.itemCards[0]);
+        } else {
+          acc.push({
+            title: title,
+            itemCards: curr.itemCards,
+          });
+        }
+        return acc;
       }
-
-      return acc;
     }, []);
   }
 
