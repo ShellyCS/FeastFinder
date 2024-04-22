@@ -30,7 +30,7 @@ const Section = ({ info }) => {
                 <h1 className="font-semibold tracking-wide text-md">
                   {card.name}{" "}
                   <span className="text-xs font-normal">
-                    {card.price ? "$" + card.price / 1000 : "$ 15.0"}
+                    {card.price ? "$" + card.price / 100 : "$ 15.0"}
                   </span>
                 </h1>
                 <p className="font-normal text-xs tracking-wide text-gray-400 mt-2">

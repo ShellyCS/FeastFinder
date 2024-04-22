@@ -8,16 +8,13 @@ const Cart = () => {
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const [price, setPrice] = useState(0);
-  console.log(cartItems);
 
   useEffect(() => {
-    // calculate price of all items
     let price = 0;
     cartItems.forEach((item) => {
       if (item.price) {
-        price += item.price;
-      } else {
-        price += item.price;
+        let p = +item.price / 100;
+        price += p;
       }
     });
     setPrice(price);
@@ -79,9 +76,13 @@ const Cart = () => {
                       </button>
                     </div>
                     {item.price ? (
-                      <span className="ml-auto font-bold">$ {item.price}</span>
+                      <span className="ml-auto font-bold">
+                        $ {item.price / 100}
+                      </span>
                     ) : (
-                      <span className="ml-auto font-bold">$ {item.price}</span>
+                      <span className="ml-auto font-bold">
+                        $ {item.price / 100}
+                      </span>
                     )}
                   </div>
                 </div>
@@ -90,7 +91,7 @@ const Cart = () => {
           </div>
           <div className="flex justify-end items-center mt-8">
             <span className="text-gray-600 mr-4">Subtotal:</span>
-            <span className="text-xl font-bold">{price}</span>
+            <span className="text-xl font-bold">$ {price}</span>
           </div>
         </div>
       )}
