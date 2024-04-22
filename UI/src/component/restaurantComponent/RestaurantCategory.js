@@ -3,18 +3,22 @@ import React, { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { IMG_CDN_URL } from "../body/config";
 import { useDispatch } from "react-redux";
-import { additem } from "./../../ReduxSlice/cartSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { addItems } from "../../utils/slices/cartsSlice";
 
 const Section = ({ info }) => {
   const dispatch = useDispatch();
 
   const handleAddItem = (item) => {
-    dispatch(additem(item));
+    toast.info("🎉Item added in the cart!");
+    dispatch(addItems(item));
   };
 
   return (
     <div className=" mt-4">
       <div className="flex flex-col text-left">
+        <ToastContainer autoClose={1000} />
         {info.itemCards.map((item, index) => {
           const card = item;
           return (

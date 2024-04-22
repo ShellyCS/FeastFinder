@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import { useSelector, useDispatch } from "react-redux";
 import { IMG_CDN_URL } from "../body/config";
-import { deleteallitems } from "../../ReduxSlice/cartSlice";
 import { useEffect, useState } from "react";
+import { emptyCart, removeItem } from "../../utils/slices/cartsSlice";
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.items);
@@ -27,7 +27,11 @@ const Cart = () => {
   console.log(cartItems);
 
   const clearCart = () => {
-    dispatch(deleteallitems());
+    dispatch(emptyCart());
+  };
+
+  const removeCartOrders = (item) => {
+    dispatch(removeItem(item));
   };
 
   return (
@@ -65,22 +69,19 @@ const Cart = () => {
                     <div className="flex items-center px-2">
                       <button
                         className="bg-gray-200 rounded-l-lg px-2 py-1"
-                        disabled
+                        onClick={() => removeCartOrders(item)}
                       >
                         -
                       </button>
                       <span className="mx-2 text-gray-600">1</span>
-                      <button
-                        className="bg-gray-200 rounded-r-lg px-2 py-1"
-                        disabled
-                      >
+                      <button className="bg-gray-200 rounded-r-lg px-2 py-1">
                         +
                       </button>
                     </div>
                     {item.price ? (
-                      <span className="ml-auto font-bold">Rs {item.price}</span>
+                      <span className="ml-auto font-bold">$ {item.price}</span>
                     ) : (
-                      <span className="ml-auto font-bold">Rs {item.price}</span>
+                      <span className="ml-auto font-bold">$ {item.price}</span>
                     )}
                   </div>
                 </div>
