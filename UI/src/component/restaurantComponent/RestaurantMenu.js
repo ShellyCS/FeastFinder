@@ -20,6 +20,7 @@ const RestaurantMenu = () => {
     restaurants.find((data) => {
       if (data.restaurantId === id) {
         restaurant = data;
+        return;
       }
     });
   }

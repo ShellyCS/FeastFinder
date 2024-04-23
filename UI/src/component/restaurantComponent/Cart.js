@@ -3,11 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { IMG_CDN_URL } from "../body/config";
 import { useEffect, useState } from "react";
 import { emptyCart, removeItem } from "../../utils/slices/cartsSlice";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const [price, setPrice] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let price = 0;
@@ -31,8 +33,18 @@ const Cart = () => {
     dispatch(removeItem(item));
   };
 
+  const backfunc = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="w-[80%] mx-auto h-screen">
+      <button
+        className="z-10 top-14 translate-x-[70%] bg-white px-3 py-2 text-md font-medium shadow-md rounded-md hover:bg-gray-100 border-transparent rounded"
+        onClick={backfunc}
+      >
+        Back
+      </button>
       {cartItems.length === 0 ? (
         <h1 className="text-center text-2xl font-semibold mt-4">
           Cart is Empty
@@ -68,12 +80,12 @@ const Cart = () => {
                         className="bg-gray-200 rounded-l-lg px-2 py-1"
                         onClick={() => removeCartOrders(item)}
                       >
-                        -
+                        Remove
                       </button>
-                      <span className="mx-2 text-gray-600">1</span>
+                      {/* <span className="mx-2 text-gray-600">1</span>
                       <button className="bg-gray-200 rounded-r-lg px-2 py-1">
                         +
-                      </button>
+                      </button> */}
                     </div>
                     {item.price ? (
                       <span className="ml-auto font-bold">
@@ -91,7 +103,7 @@ const Cart = () => {
           </div>
           <div className="flex justify-end items-center mt-8">
             <span className="text-gray-600 mr-4">Subtotal:</span>
-            <span className="text-xl font-bold">$ {price}</span>
+            <span className="text-xl font-bold">$ {Math.round(price)}</span>
           </div>
         </div>
       )}

@@ -8,10 +8,16 @@ const useDishes = (id) => {
   }, []);
 
   async function getDishes() {
+    let arr = [];
     const data = await fetch("http://localhost:8081/dishes");
     const json = await data.json();
     console.log(json);
-    setDishes(json);
+    json.filter((data) => {
+      if (data.restaurantId === +id) {
+        arr.push(data);
+        setDishes(arr);
+      }
+    });
   }
 
   return dishes;
