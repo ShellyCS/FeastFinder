@@ -100,7 +100,9 @@ VALUES
 (728722, 'Recommended'),
 (728722, 'Wood Fired Veg Pizza'),
 (728722, 'Desserts'),
-(728722, 'Beverages');
+(728722, 'Beverages'),
+(32291, 'CCD Cricket League'),
+(32291, 'Celebration Cake');
 
 
 
@@ -121,31 +123,33 @@ CREATE TABLE IF NOT EXISTS Dishes (
 -- https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9351929&lng=77.62448069999999&restaurantId=30183
 
 -- Inserting dishes into the Recommended category of Chinese Wok
-INSERT INTO dishes (dishId, categoryId, restaurantId, name, description, price, isVeg, imageId, categoryName)
-VALUES 
-(3, 1, 28408, 'Combo for 1 Veg', 'Serves 1 | Combo for one (Rice/Noodle Bowl with choice of Veg Gravy, Veg Momos & Drinks)', 359.00, 1, '3e4f7ca32bf517b390f1cb3205b892e4', 'Recommended'),
-(4, 1, 28408, 'Combo for 1 Non-Veg', 'Serves 1 | Combo for one (Rice/Noodle Bowl with choice of Non-Veg Gravy, Non-Veg Momos & Drinks)', 379.00, 0, '440c06ace44b931b729d9b6a090aba07', 'Recommended'),
-(5, 1, 28408, 'Hunan Paneer Dry', 'Serves 1 | (Spicy) Cubes Of Paneer, Onion, Capsicum Tossed With Spicy & Savory flavors of Hunan Sauce.', 179.00, 1, 'FOOD_CATALOG/IMAGES/CMS/2024/4/1/556889e9-b065-4137-b72c-461bac300d01_2c92ca9c-be45-4732-b598-7904032b7dbb.jpg_compressed', 'Recommended'),
-(6, 1, 28408, 'Schezwan Paneer Dry', 'Serves 1 | (Spicy) Cubes Of Paneer, Onion, Capsicum Tossed With Schezwan Sauce.', 179.00, 1, 'FOOD_CATALOG/IMAGES/CMS/2024/4/1/6a0e0e38-2636-4eff-af1a-a27f23fb292c_879376f5-f5b5-400c-86aa-aec499341475.jpg_compressed', 'Recommended'),
-(7, 1, 28408, 'Hunan Chicken Dry', 'Serves 1 | (Spicy) Diced chicken, Onion, Capsicum Tossed With Spicy & Savory flavors of Hunan Sauce.', 179.00, 0, 'FOOD_CATALOG/IMAGES/CMS/2024/4/1/437b789a-adb8-4e75-8eff-e189113ffb30_6c98fe7d-1a74-4c71-8119-42b7993ab602.jpg_compressed', 'Recommended'),
-(8, 1, 28408, 'Schezwan Chicken Dry', 'Serves 1 | (Spicy) Diced Chicken, Onion, Capsicum Tossed With Schezwan Sauce.', 179.00, 0, 'FOOD_CATALOG/IMAGES/CMS/2024/4/1/12970b39-0711-4b74-87d4-39d40c352010_a22898b3-d397-4a79-9422-891fb7a17f76.jpg_compressed', 'Recommended'),
-(9, 2, 28408, 'Veg Manchurian Pot Rice', 'Serves 1', 425.00, 1, 'b070b7161ba21152911305c9ef19d383', 'Pot Rice'),
-(10, 2, 28408, 'Paneer Pot Rice', 'Serves 1', 425.00, 1, 'a2fe0e7f6d4250df5ba4c37feb936f72', 'Pot Rice'),
-(11, 2, 28408, 'Chicken Pot Rice', 'Serves 2', 455.00, 0, '9e2e059b65d3855823ca507595ebe350', 'Pot Rice'),
-(12, 3, 28408, 'Chocolate Mousse - Small', 'Serves 1 | Creamy chocolate mousse layered with moist chocolate cake.', 59.00, 1, 'ca711b079751ea33fe269fb647d16cc6', 'Dessert'),
-(13, 3, 28408, 'Black forest Mousse Cake', 'Serves 1 | Evergreen cake recipe, served in a mousse style dessert', 59.00, 1, '8ba0f3247c029df99f689b410d955859', 'Dessert'),
-(14, 3, 28408, 'Salted Caramel Choco Mousse', 'Serves 1 | Layers of Salted Caramel mousse and Choco mousse served chilled', 59.00, 1, '3ded4072d30fde445c7e3bbc4d442b5f', 'Dessert'),
-(15, 3, 28408, 'Choco Lava', 'Serves 1 | Rich chocolate cake with molten chocolate center, served warm.', 99.00, 1, '29dcf869cd4eaa4df85019237ee67982', 'Dessert'),
-(16, 4, 28408, 'Pepsi Pet Bottle', 'Serves 1', 60.00, 1, '12b08bb69e0309ca812b61d18687ba54', 'Drinks'),
-(17, 4, 28408, '7 Up', 'Serves 1', 60.00, 1, 'c421918afec28477d19a4fd1726f5cbb', 'Drinks'),
-(18, 4, 28408, 'Coolberg Peach', 'Serves 1', 125.00, 1, 'c625bfc8302aee8b090fd08ac485cb6d', 'Drinks'),
-(19, 4, 28408, 'Coolberg Cranberry', 'Serves 1', 125.00, 1, '88ac3e904d023c08fab7760349831143', 'Drinks'),
-(20, 5, 28408, 'Crispy Noodles', 'Serves 1', 2000.00, 1, 'ee5eff88d414fbb62db96955497b3506', 'Extras'),
-(21, 5, 28408, 'Extra Schezwan Dip', 'Serves 1', 2000.00, 1, '7fad74d38be24e7be6ebc8eebbb3ee4e', 'Extras'),
-(22, 5, 28408, 'Extra Mayo Dip', 'Serves 1', 2000.00, 1, '8389646190f90fdc187c9e4bc3f79b0c', 'Extras'),
-(23, 5, 28408, 'Extra Sweet Chilli Dip', 'Serves 1', 2000.00, 1, '756739f826fd170b5ed4644f61a2d824', 'Extras'),
-(28, 14, 728722, 'Choco Chip Brownie', '[Eggless]. Brownies are the most loved and addictive dessert which are moist, soft in texture and gives you unique taste. Enjoy every bite and mark your moments.', 129.00, 1, 'FOOD_CATALOG/IMAGES/CMS/2024/3/6/ebd59ed4-4e3a-4bc2-b9a2-bfb4f264c789_938e7e9f-5e57-4104-a8fc-802018674b96_compressed', 'Desserts'),
-(29, 14, 728722, 'Butterscotch Brownie', '[Eggless]. Celebrate the moments with our delicious and simple butterscotch brownie. Brownies are the most loved and addictive dessert which are moist, soft in texture and give you a magical taste. Enjoy every bite and mark your moments.', 129.00, 1, 'FOOD_CATALOG/IMAGES/CMS/2024/3/6/d9e376ac-ceb9-4319-8ad4-6fa14cded119_40719fdf-8072-4f0a-8bb2-58029ce62cc7_compressed', 'Desserts'),
-(30, 12, 728722, 'Margherita Pizza', 'Serves 1 | Our signature pizza crust loaded with Classic Mozzarella Cheese + Cheddar Cheese + Tomato', 0.00, 1, 'ucbg7vvayxhhaqtq3bak', 'Wood Fired Veg Pizza'),
-(31, 12, 728722, 'Mexican Wave Pizza', 'Serves 1 | Our signature pizza crust loaded with Classic Mozzarella Cheese + Cheddar Cheese + Onion + Capsicum + Tomato + Jalapeno', 0.00, 1, 'FOOD_CATALOG/IMAGES/CMS/2024/3/12/522cff1f-31e0-4731-8d26-2da52fc49b26_862961c4-0a69-4532-9da5-100f1e27655a.jpg_compressed', 'Recommended');
-
+    INSERT INTO dishes (dishId, restaurantId, name, description, price, isVeg, imageId, categoryName)
+    VALUES 
+    (3, 28408, 'Combo for 1 Veg', 'Serves 1 | Combo for one (Rice/Noodle Bowl with choice of Veg Gravy, Veg Momos & Drinks)', 359.00, 1, '3e4f7ca32bf517b390f1cb3205b892e4', 'Recommended'),
+    (4, 28408, 'Combo for 1 Non-Veg', 'Serves 1 | Combo for one (Rice/Noodle Bowl with choice of Non-Veg Gravy, Non-Veg Momos & Drinks)', 379.00, 0, '440c06ace44b931b729d9b6a090aba07', 'Recommended'),
+    (5, 28408, 'Hunan Paneer Dry', 'Serves 1 | (Spicy) Cubes Of Paneer, Onion, Capsicum Tossed With Spicy & Savory flavors of Hunan Sauce.', 179.00, 1, 'FOOD_CATALOG/IMAGES/CMS/2024/4/1/556889e9-b065-4137-b72c-461bac300d01_2c92ca9c-be45-4732-b598-7904032b7dbb.jpg_compressed', 'Recommended'),
+    (6, 28408, 'Schezwan Paneer Dry', 'Serves 1 | (Spicy) Cubes Of Paneer, Onion, Capsicum Tossed With Schezwan Sauce.', 179.00, 1, 'FOOD_CATALOG/IMAGES/CMS/2024/4/1/6a0e0e38-2636-4eff-af1a-a27f23fb292c_879376f5-f5b5-400c-86aa-aec499341475.jpg_compressed', 'Recommended'),
+    (7, 28408, 'Hunan Chicken Dry', 'Serves 1 | (Spicy) Diced chicken, Onion, Capsicum Tossed With Spicy & Savory flavors of Hunan Sauce.', 179.00, 0, 'FOOD_CATALOG/IMAGES/CMS/2024/4/1/437b789a-adb8-4e75-8eff-e189113ffb30_6c98fe7d-1a74-4c71-8119-42b7993ab602.jpg_compressed', 'Recommended'),
+    (8, 28408, 'Schezwan Chicken Dry', 'Serves 1 | (Spicy) Diced Chicken, Onion, Capsicum Tossed With Schezwan Sauce.', 179.00, 0, 'FOOD_CATALOG/IMAGES/CMS/2024/4/1/12970b39-0711-4b74-87d4-39d40c352010_a22898b3-d397-4a79-9422-891fb7a17f76.jpg_compressed', 'Recommended'),
+(9, 28408, 'Veg Manchurian Pot Rice', 'Serves 1', 425.00, 1, 'b070b7161ba21152911305c9ef19d383', 'Pot Rice'),
+(10, 28408, 'Paneer Pot Rice', 'Serves 1', 425.00, 1, 'a2fe0e7f6d4250df5ba4c37feb936f72', 'Pot Rice'),
+(11, 28408, 'Chicken Pot Rice', 'Serves 2', 455.00, 0, '9e2e059b65d3855823ca507595ebe350', 'Pot Rice'),
+(12, 28408, 'Chocolate Mousse - Small', 'Serves 1 | Creamy chocolate mousse layered with moist chocolate cake.', 59.00, 1, 'ca711b079751ea33fe269fb647d16cc6', 'Dessert'),
+(13, 28408, 'Black forest Mousse Cake', 'Serves 1 | Evergreen cake recipe, served in a mousse style dessert', 59.00, 1, '8ba0f3247c029df99f689b410d955859', 'Dessert'),
+(14, 28408, 'Salted Caramel Choco Mousse', 'Serves 1 | Layers of Salted Caramel mousse and Choco mousse served chilled', 59.00, 1, '3ded4072d30fde445c7e3bbc4d442b5f', 'Dessert'),
+(15, 28408, 'Choco Lava', 'Serves 1 | Rich chocolate cake with molten chocolate center, served warm.', 99.00, 1, '29dcf869cd4eaa4df85019237ee67982', 'Dessert'),
+(16, 28408, 'Pepsi Pet Bottle', 'Serves 1', 60.00, 1, '12b08bb69e0309ca812b61d18687ba54', 'Drinks'),
+(17, 28408, '7 Up', 'Serves 1', 60.00, 1, 'c421918afec28477d19a4fd1726f5cbb', 'Drinks'),
+(18, 28408, 'Coolberg Peach', 'Serves 1', 125.00, 1, 'c625bfc8302aee8b090fd08ac485cb6d', 'Drinks'),
+(19, 28408, 'Coolberg Cranberry', 'Serves 1', 125.00, 1, '88ac3e904d023c08fab7760349831143', 'Drinks'),
+(20, 28408, 'Crispy Noodles', 'Serves 1', 2000.00, 1, 'ee5eff88d414fbb62db96955497b3506', 'Extras'),
+(21, 28408, 'Extra Schezwan Dip', 'Serves 1', 2000.00, 1, '7fad74d38be24e7be6ebc8eebbb3ee4e', 'Extras'),
+(22, 28408, 'Extra Mayo Dip', 'Serves 1', 2000.00, 1, '8389646190f90fdc187c9e4bc3f79b0c', 'Extras'),
+(23, 28408, 'Extra Sweet Chilli Dip', 'Serves 1', 2000.00, 1, '756739f826fd170b5ed4644f61a2d824', 'Extras'),
+(28,  728722, 'Choco Chip Brownie', '[Eggless]. Brownies are the most loved and addictive dessert which are moist, soft in texture and gives you unique taste. Enjoy every bite and mark your moments.', 129.00, 1, 'FOOD_CATALOG/IMAGES/CMS/2024/3/6/ebd59ed4-4e3a-4bc2-b9a2-bfb4f264c789_938e7e9f-5e57-4104-a8fc-802018674b96_compressed', 'Desserts'),
+(29,  728722, 'Butterscotch Brownie', '[Eggless]. Celebrate the moments with our delicious and simple butterscotch brownie. Brownies are the most loved and addictive dessert which are moist, soft in texture and give you a magical taste. Enjoy every bite and mark your moments.', 129.00, 1, 'FOOD_CATALOG/IMAGES/CMS/2024/3/6/d9e376ac-ceb9-4319-8ad4-6fa14cded119_40719fdf-8072-4f0a-8bb2-58029ce62cc7_compressed', 'Desserts'),
+(30,  728722, 'Margherita Pizza', 'Serves 1 | Our signature pizza crust loaded with Classic Mozzarella Cheese + Cheddar Cheese + Tomato', 0.00, 1, 'ucbg7vvayxhhaqtq3bak', 'Wood Fired Veg Pizza'),
+(31,  728722, 'Mexican Wave Pizza', 'Serves 1 | Our signature pizza crust loaded with Classic Mozzarella Cheese + Cheddar Cheese + Onion + Capsicum + Tomato + Jalapeno', 0.00, 1, 'FOOD_CATALOG/IMAGES/CMS/2024/3/12/522cff1f-31e0-4731-8d26-2da52fc49b26_862961c4-0a69-4532-9da5-100f1e27655a.jpg_compressed', 'Recommended'),
+(32, 32291, 'King Latte', 'Serves 1 | Light, hot coffee, with 2 shots of espresso in steamed milk., Serving Size(gm/ml) - 350, Energy (kcal) - 184.66 Contains Milk', 169.00, 1, 'evcgfuy8ticij45vcgsb', 'CCD Cricket League'),
+(33, 32291, 'Crunchy Frappe', 'Serves 1 | Some eat an oreo. Some dunk it. Some frappe it and do both`257 (350ml | 541.59kcal)', 319.00, 1, 'pey3ddrzxnkrzrq0mwnd', 'CCD Cricket League'),
+(34, 32291, 'Dutch Truffle Cake (730 g)', 'Serves 4 | Tangy orange flavored, creamy truffle topped, delightful cocoa cake laced with a delicious ganache glaze. Serving Size(gm/ml) - 100, Energy (kcal) - 366.25 , Contains Gluten, Contains Milk, Contains Soy', 699.00, 1, 'nywbsgs2koiovpekqeyw', 'Celebration Cake');
