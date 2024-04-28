@@ -16,6 +16,8 @@ import {
 } from "../../routes/routelist";
 import { logoutUser } from "../../utils/UserSlice";
 import logo from "../../assets/applogo.png";
+import Badge from "@mui/material/Badge";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const Navbar = () => {
   const user = useSelector((state) => state.user);
@@ -30,7 +32,8 @@ const Navbar = () => {
   };
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
-
+  const items = useSelector((state) => state.cart.items);
+  const itemsCount = items.length;
   const userLoggedIn = user.loggedIn && user.email;
 
   const handleLogoutPopper = (event) => {
@@ -86,6 +89,27 @@ const Navbar = () => {
               {privateRouteList.map(({ path, label, disableInNavbar }) => {
                 if (disableInNavbar) {
                   return true;
+                }
+                if (label === "Cart") {
+                  return (
+                    <Grid item>
+                      <Button
+                        color={
+                          location.pathname === path ? "primary" : "secondary"
+                        }
+                        onClick={() => handleRouteChange(path)}
+                      >
+                        <Badge
+                          badgeContent={itemsCount}
+                          color={
+                            location.pathname === path ? "primary" : "secondary"
+                          }
+                        >
+                          <ShoppingCartIcon />
+                        </Badge>
+                      </Button>
+                    </Grid>
+                  );
                 }
                 return (
                   <Grid item>

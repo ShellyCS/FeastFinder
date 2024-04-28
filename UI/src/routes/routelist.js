@@ -21,7 +21,7 @@ const privateRouteList = [
   {
     path: "/cart",
     element: Cart,
-    label: <ShoppingCartIcon />,
+    label: "Cart",
   },
 ];
 
