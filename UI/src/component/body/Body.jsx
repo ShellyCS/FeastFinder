@@ -11,6 +11,7 @@ const Body = () => {
   const [flteredRestaurants, setfilteredRestaurants] = useState([]);
   const [searchText, setsearchText] = useState("");
   const allRestaurants = useAllRestaurant(setfilteredRestaurants);
+  console.log({ allRestaurants });
   const offline = useOnline();
   const PromotedRestaurantCard = withPromotedLabel(RestaurantCard);
 
