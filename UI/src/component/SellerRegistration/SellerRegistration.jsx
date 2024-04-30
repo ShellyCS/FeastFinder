@@ -1,10 +1,21 @@
-import { useState } from "react";
-import { Button, Grid, TextField, Typography } from "@mui/material";
-import DishesData from "./DishesData";
+import { useEffect, useState } from "react";
+import { Button, Grid, Tab, Tabs, Box } from "@mui/material";
+import Dishes from "./DishesData";
 import Restaurant from "./Restaurant";
+import { postRequest } from "../../api";
+import { useSelector } from "react-redux";
+import TabPanel from "./TabPanel";
 
 const SellerRegistration = () => {
-  const handleSubmit = () => {};
+  const [tabValue, setTabValue] = useState(0);
+  const token = useSelector((state) => state.user.token);
+  const handleChangeTab = (event, newValue) => {
+    setTabValue(newValue);
+  };
+
+  const handleSubmit = () => {
+    // Handle form submission
+  };
 
   return (
     <Grid
@@ -17,19 +28,16 @@ const SellerRegistration = () => {
       }}
     >
       <Grid item xs={12} sm={11} md={11}>
-        <Restaurant />
-      </Grid>
-      <Grid item xs={12} sm={11} md={11}>
-        <DishesData />
-      </Grid>
-      <Grid item xs={12}>
-        <Grid container justifyContent={"center"} alignItems={"center"}>
-          <Grid item>
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
-              Submit
-            </Button>
-          </Grid>
-        </Grid>
+        <Tabs value={tabValue} onChange={handleChangeTab}>
+          <Tab label="Restaurants" />
+          <Tab label="Dishes" />
+        </Tabs>
+        <TabPanel value={tabValue} index={0}>
+          <Restaurant />
+        </TabPanel>
+        <TabPanel value={tabValue} index={1}>
+          <Dishes />
+        </TabPanel>
       </Grid>
     </Grid>
   );

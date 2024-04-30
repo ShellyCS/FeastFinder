@@ -42,6 +42,7 @@ function useAllRestaurant(setfilteredRestaurants) {
           id: item.id.toString(),
           name: item.name,
           cloudinaryImageId: item.restaurant_image,
+          base64Image: item.base64Image,
           areaName: item.areaName,
           costForTwo: "₹250 for two",
           cuisines: [],

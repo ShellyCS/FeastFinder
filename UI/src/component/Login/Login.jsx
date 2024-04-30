@@ -10,7 +10,7 @@ import { emailRegex, passwordRegex } from "../../utils";
 import { postRequest } from "../../api";
 import { useSnackbar } from "notistack";
 import { useDispatch } from "react-redux";
-import { loginUser, logoutUser } from "../../utils/UserSlice";
+import { loginUser, logoutUser } from "../../utils/slices/UserSlice";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import GoogleIcon from "@mui/icons-material/Google";

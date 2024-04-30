@@ -153,3 +153,16 @@ CREATE TABLE IF NOT EXISTS Dishes (
 (32, 32291, 'King Latte', 'Serves 1 | Light, hot coffee, with 2 shots of espresso in steamed milk., Serving Size(gm/ml) - 350, Energy (kcal) - 184.66 Contains Milk', 169.00, 1, 'evcgfuy8ticij45vcgsb', 'CCD Cricket League'),
 (33, 32291, 'Crunchy Frappe', 'Serves 1 | Some eat an oreo. Some dunk it. Some frappe it and do both`257 (350ml | 541.59kcal)', 319.00, 1, 'pey3ddrzxnkrzrq0mwnd', 'CCD Cricket League'),
 (34, 32291, 'Dutch Truffle Cake (730 g)', 'Serves 4 | Tangy orange flavored, creamy truffle topped, delightful cocoa cake laced with a delicious ganache glaze. Serving Size(gm/ml) - 100, Energy (kcal) - 366.25 , Contains Gluten, Contains Milk, Contains Soy', 699.00, 1, 'nywbsgs2koiovpekqeyw', 'Celebration Cake');
+
+
+CREATE TABLE IF NOT EXISTS userASSeller (
+    userId INT AUTO_INCREMENT PRIMARY KEY,
+    restaurantId INT,
+    FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (restaurantId) REFERENCES Restaurants(id) ON DELETE CASCADE
+);
+
+CREATE TABLE images (
+    id VARCHAR(250) PRIMARY KEY,
+    image_data LONGBLOB
+);

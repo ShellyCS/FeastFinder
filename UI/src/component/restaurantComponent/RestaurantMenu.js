@@ -68,11 +68,20 @@ const RestaurantMenu = () => {
         Back
       </button>
       <div className="flex flex-col items-start w-96 m-auto md:w-[400px] bg-white border-2 border-gray-200 rounded-lg   hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-        <img
-          className="object-contain p-2 rounded-xl w-full"
-          src={IMG_CDN_URL + restaurant?.cloudinaryImageId}
-          alt="restaurant img"
-        />
+        {restaurant?.base64Image ? (
+          <img
+            className="object-contain p-2 rounded-xl w-full"
+            alt="restaurant img"
+            src={`data:image/jpeg;base64,${restaurant?.base64Image}`}
+          />
+        ) : (
+          <img
+            className="object-contain p-2 rounded-xl w-full"
+            alt="restaurant img"
+            src={IMG_CDN_URL + restaurant?.cloudinaryImageId}
+          />
+        )}
+
         <div className="flex flex-col justify-between  p-4 leading-normal">
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             {restaurant?.name}

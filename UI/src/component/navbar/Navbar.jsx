@@ -14,22 +14,20 @@ import {
   privateRouteList,
   publicRoutes,
 } from "../../routes/routelist";
-import { logoutUser } from "../../utils/UserSlice";
+import { logoutUser } from "../../utils/slices/UserSlice";
 import logo from "../../assets/applogo.png";
 import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const Navbar = () => {
-  const user = useSelector((state) => state.user);
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-
   const theme = useTheme();
-  const handleRouteChange = (path) => {
-    navigate(path);
-  };
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  const token = useSelector((state) => state.user.token);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const items = useSelector((state) => state.cart.items);
@@ -48,11 +46,20 @@ const Navbar = () => {
       variant: "success",
     });
   };
+  const handleRouteChange = (path) => {
+    navigate(path);
+  };
   useEffect(() => {
     if (userLoggedIn && location.pathname === "/login") {
       navigate("/");
     }
   }, [location.pathname]);
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+    return () => {};
+  }, [token]);
   return (
     <Grid
       container

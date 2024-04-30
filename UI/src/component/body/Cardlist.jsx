@@ -2,14 +2,24 @@ import React from "react";
 import { IMG_CDN_URL } from "../body/config";
 
 const RestaurantCard = (props) => {
-  const { id, name, areaName, avgRating, cloudinaryImageId, sla } = props;
+  const { id, name, areaName, avgRating, cloudinaryImageId, base64Image, sla } =
+    props;
   return (
     <div key={id} className="w-72 border-2 p-3 shadow-md">
-      <img
-        className="rounded-lg hover:scale-95 transition-all duration-500  cursor-pointer"
-        alt="res-logo"
-        src={IMG_CDN_URL + cloudinaryImageId}
-      />
+      {base64Image ? (
+        <img
+          className="rounded-lg hover:scale-95 transition-all duration-500  cursor-pointer"
+          alt="res-logo"
+          src={`data:image/jpeg;base64,${base64Image}`}
+        />
+      ) : (
+        <img
+          className="rounded-lg hover:scale-95 transition-all duration-500  cursor-pointer"
+          alt="res-logo"
+          src={IMG_CDN_URL + cloudinaryImageId}
+        />
+      )}
+
       <h3 className="font-semibold">{name}</h3>
       <div className="flex justify-between">
         <p>{areaName}</p>

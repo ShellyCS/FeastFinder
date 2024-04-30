@@ -17,7 +17,9 @@ const useRestaurant = (id) => {
     // console.log(json);
     // setrestaurant(json.data);
 
-    const data = await fetch("http://localhost:8081/restaurant_info");
+    const data = await fetch(
+      "http://localhost:8081/restaurant_info" + `/${id}`
+    );
     const json = await data.json();
     console.log(json);
     setrestaurant(json);
