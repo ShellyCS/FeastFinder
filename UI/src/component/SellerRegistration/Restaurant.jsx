@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useSnackbar } from "notistack";
 import { logoutUser } from "../../utils/slices/UserSlice";
-const Restaurant = () => {
+const Restaurant = ({ handleChangeTab }) => {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
 
@@ -27,10 +27,14 @@ const Restaurant = () => {
     setRestaurant((prev) => ({ ...prev, [name]: value }));
   };
   const handleImageChange = (event) => {
-    if (event) {
+    if (event.file) {
       setRestaurant((prev) => ({ ...prev, imageFile: event.file }));
     } else {
-      setRestaurant((prev) => ({ ...prev, imageFile: "" }));
+      setRestaurant((prev) => ({
+        ...prev,
+        imageFile: "",
+        restaurant_image: "",
+      }));
     }
   };
   const handleRestaurantInfoSubmit = async (event) => {
@@ -39,30 +43,40 @@ const Restaurant = () => {
     if (!restaurant.name) validationErrors.name = "Name is required";
     if (!restaurant.areaName) validationErrors.areaName = "Address is required";
     if (!restaurant.city) validationErrors.city = "City is required";
-    if (!restaurant.imageFile) validationErrors.imageFile = "Image is required";
+    if (!restaurant.imageFile && !restaurant.restaurant_image)
+      validationErrors.imageFile = "Image is required";
     if (Object.keys(validationErrors).length > 0) {
       // Display validation errors
       setErrors(validationErrors);
       return;
+    } else {
+      setErrors(validationErrors);
     }
-    const formData = new FormData();
 
-    formData.append("imageData", restaurant.imageFile);
     try {
-      const response = await fetch(mainRoute + "/images/upload", {
-        method: "POST",
-        headers: {
-          authorization: token,
-        },
-        body: formData,
-      }).then((response) => {
-        return response.json();
-      });
-      if (response.message === "Unauthorized access") {
+      let response = {};
+      if (restaurant.imageFile) {
+        const formData = new FormData();
+        formData.append("imageData", restaurant.imageFile);
+        response = await fetch(mainRoute + "/images/upload", {
+          method: "POST",
+          headers: {
+            authorization: token,
+          },
+          body: formData,
+        }).then((response) => {
+          return response.json();
+        });
+      }
+      if (
+        response?.message === "Unauthorized access" &&
+        !restaurant.restaurant_image
+      ) {
         dispatch(logoutUser({ loggedIn: false }));
-        console.log({ response });
-      } else if (response.id) {
-        toast.info(response.message);
+      } else if (response.id || restaurant.restaurant_image) {
+        if (response.message) {
+          toast.info(response.message);
+        }
         const uploadRestuarant_Info = await postRequest({
           currentRoute: "/seller/sellerOnBoarding",
           method: "POST",
@@ -70,7 +84,7 @@ const Restaurant = () => {
           body: {
             name: restaurant.name,
             areaName: restaurant.areaName,
-            restaurant_image: response.id,
+            restaurant_image: response.id || restaurant.restaurant_image,
             city: restaurant.city,
           },
         });
@@ -78,6 +92,11 @@ const Restaurant = () => {
           enqueueSnackbar(uploadRestuarant_Info.error, {
             variant: "error",
           });
+        } else {
+          enqueueSnackbar(uploadRestuarant_Info.statusText, {
+            variant: "success",
+          });
+          handleChangeTab("", 1);
         }
       }
     } catch (error) {
@@ -98,9 +117,15 @@ const Restaurant = () => {
         Array.isArray(data.restaurant_info) &&
         data.restaurant_info.length > 0
       ) {
-        setRestaurant({
+        const finalRestaurantDetails = {
           ...(data.restaurant[0] || {}),
           ...(data.restaurant_info[0] || {}),
+        };
+        if (Object.keys(finalRestaurantDetails).length > 0) {
+          finalRestaurantDetails.isAlreadyASeller = true;
+        }
+        setRestaurant({
+          ...finalRestaurantDetails,
         });
       }
     }
@@ -110,7 +135,9 @@ const Restaurant = () => {
     <Grid container spacing={2} justifyContent={"center"}>
       <Grid item xs={12}>
         <Typography variant="h6" color={"primary"}>
-          Let's Beggin Restuarant registration
+          {!restaurant.isAlreadyASeller
+            ? "Let's Beggin Restuarant registration"
+            : "Modify your restuarant"}
         </Typography>
       </Grid>
       <Grid item xs={11}>
@@ -120,7 +147,7 @@ const Restaurant = () => {
           spacing={2}
           justifyContent={"center"}
         >
-          <Grid item sm={6} md={3}>
+          <Grid item xs={4}>
             <TextField
               fullWidth
               label="Name"
@@ -132,7 +159,7 @@ const Restaurant = () => {
               required
             />
           </Grid>
-          <Grid item sm={6} md={3}>
+          <Grid item xs={4}>
             <TextField
               fullWidth
               label="Address1"
@@ -145,7 +172,7 @@ const Restaurant = () => {
             />
           </Grid>
 
-          <Grid item sm={6} md={3}>
+          <Grid item xs={4}>
             <TextField
               fullWidth
               label="City"

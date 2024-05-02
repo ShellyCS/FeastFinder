@@ -4,8 +4,11 @@ import { IMG_CDN_URL } from "../body/config";
 import { useEffect, useState } from "react";
 import { emptyCart, removeItem } from "../../utils/slices/cartsSlice";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSnackbar } from "notistack";
+import { Button, Grid } from "@mui/material";
 
 const Cart = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const [price, setPrice] = useState(0);
@@ -15,15 +18,12 @@ const Cart = () => {
     let price = 0;
     cartItems.forEach((item) => {
       if (item.price) {
-        let p = +item.price / 100;
+        let p = +(item.price / 100) * item.count;
         price += p;
       }
     });
     setPrice(price);
   }, [cartItems]);
-
-  console.log("cartItems");
-  console.log(cartItems);
 
   const clearCart = () => {
     dispatch(emptyCart());
@@ -35,6 +35,12 @@ const Cart = () => {
 
   const backfunc = () => {
     navigate(-1);
+  };
+
+  const handleBuyNow = () => {
+    enqueueSnackbar(`Order Has been placed`, {
+      variant: "success",
+    });
   };
 
   return (
@@ -64,17 +70,27 @@ const Cart = () => {
             {cartItems.map((item) => (
               <div className="flex flex-col md:flex-row border-b border-gray-400 py-4">
                 <div className="flex-shrink-0">
-                  <img
-                    src={IMG_CDN_URL + item.imageId}
-                    alt="Product image"
-                    className="w-32 h-32 object-cover"
-                  />
+                  {item?.base64Image ? (
+                    <img
+                      className="w-32 h-32 object-cover"
+                      alt="Product image"
+                      src={`data:image/jpeg;base64,${item?.base64Image}`}
+                    />
+                  ) : (
+                    <img
+                      src={IMG_CDN_URL + item.imageId}
+                      alt="Product image"
+                      className="w-32 h-32 object-cover"
+                    />
+                  )}
                 </div>
                 <div className="mt-4 md:mt-0 md:ml-6">
                   <h2 className="text-lg font-bold">{item.name}</h2>
                   <p className="mt-2 text-gray-600">{item.categoryName}</p>
                   <div className="mt-4 flex items-center">
-                    <span className="mr-2 text-gray-600">Quantity:</span>
+                    <span className="mr-2 text-gray-600">
+                      Quantity: {item.count}
+                    </span>
                     <div className="flex items-center px-2">
                       <button
                         className="bg-gray-200 rounded-l-lg px-2 py-1"
@@ -103,8 +119,21 @@ const Cart = () => {
           </div>
           <div className="flex justify-end items-center mt-8">
             <span className="text-gray-600 mr-4">Subtotal:</span>
-            <span className="text-xl font-bold">$ {Math.round(price)}</span>
+            <span className="text-xl font-bold">
+              $ {(Math.round(price * 100) / 100).toFixed(2)}
+            </span>
           </div>
+          <Grid container justifyContent={"flex-end"}>
+            <Grid item>
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={handleBuyNow}
+              >
+                Buy Now
+              </Button>
+            </Grid>
+          </Grid>
         </div>
       )}
     </div>

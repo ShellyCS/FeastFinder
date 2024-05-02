@@ -7,13 +7,10 @@ const convertBlobToBuffer = require("../utils/convertBlobToBuffer");
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    console.log({ id });
-    console.log("called");
     const [info] = await db.query(
       "SELECT * FROM restaurant_info Where restaurantId = ?",
       [id]
     );
-    console.log({ info });
     const finalRestaurants_Info = await convertBlobToBuffer(
       info,
       "cloudinaryImageId"
