@@ -6,6 +6,7 @@ import { postRequest } from "../../api";
 import { useSelector, useDispatch } from "react-redux";
 import TabPanel from "./TabPanel";
 import { logoutUser } from "../../utils/slices/UserSlice";
+import { emptyCart } from "../../utils/slices/cartsSlice";
 
 const SellerRegistration = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const SellerRegistration = () => {
       });
       if (data?.message === "Unauthorized access") {
         dispatch(logoutUser({ loggedIn: false }));
+        dispatch(emptyCart());
       } else if (
         Array.isArray(data.restaurant) &&
         data.restaurant.length > 0 &&

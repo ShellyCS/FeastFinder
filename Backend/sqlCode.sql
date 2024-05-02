@@ -166,3 +166,24 @@ CREATE TABLE images (
     id VARCHAR(250) PRIMARY KEY,
     image_data LONGBLOB
 );
+
+CREATE TABLE Orders (
+    orderId INT AUTO_INCREMENT PRIMARY KEY,
+    userId INT NOT NULL,
+    orderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (userId) REFERENCES users(id)
+);
+
+CREATE TABLE OrderDetails (
+    orderId INT,
+    dishId INT,
+    restaurantId INT,
+    name VARCHAR(255),
+    description TEXT,
+    price DECIMAL(10, 2),
+    isVeg BOOLEAN,
+    imageId VARCHAR(255),
+    categoryName VARCHAR(255),
+    count INT,
+    FOREIGN KEY (orderId) REFERENCES Orders(orderId)
+);

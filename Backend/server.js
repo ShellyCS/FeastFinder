@@ -10,6 +10,7 @@ const restaurantInfoRoutes = require("./routes/restaurant_info");
 const dishesRoutes = require("./routes/dishes");
 const seller = require("./routes/seller.js");
 const images = require("./routes/images.js");
+const orders = require("./routes/orders.js");
 
 require("dotenv").config();
 
@@ -23,6 +24,7 @@ app.use("/restaurant_info", restaurantInfoRoutes);
 app.use("/dishes", dishesRoutes);
 app.use("/seller", seller);
 app.use("/images", images);
+app.use("/orders", orders);
 app.listen(8081, () => {
   console.log("listening...");
 });
