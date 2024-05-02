@@ -2,7 +2,6 @@ import { lazy } from "react";
 import Body from "../component/body/Body";
 import Login from "../component/Login/Login";
 import SignUp from "../component/SignUp/SignUp";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 const Cart = lazy(() => import("../component/restaurantComponent/Cart"));
 const SellerRegistration = lazy(() =>
   import("../component/SellerRegistration/SellerRegistration")
@@ -10,6 +9,7 @@ const SellerRegistration = lazy(() =>
 const Menu = lazy(() =>
   import("../component/restaurantComponent/RestaurantMenu")
 );
+const MyOrders = lazy(() => import("../component/MyOrders/MyOrders"));
 const Contact = lazy(() => import("../component/contact/Contact"));
 
 const privateRouteList = [
@@ -19,9 +19,9 @@ const privateRouteList = [
     label: "BeASeller",
   },
   {
-    path: "/cart",
-    element: Cart,
-    label: "Cart",
+    path: "/myOrders",
+    element: MyOrders,
+    label: "MyOrders",
   },
 ];
 
@@ -41,6 +41,11 @@ const commonRoutes = [
     element: Menu,
     label: "Menu",
     disableInNavbar: true,
+  },
+  {
+    path: "/cart",
+    element: Cart,
+    label: "Cart",
   },
 ];
 

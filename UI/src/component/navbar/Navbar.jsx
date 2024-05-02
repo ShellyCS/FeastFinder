@@ -18,6 +18,7 @@ import { logoutUser } from "../../utils/slices/UserSlice";
 import logo from "../../assets/applogo.png";
 import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { emptyCart } from "../../utils/slices/cartsSlice";
 
 const Navbar = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -42,6 +43,7 @@ const Navbar = () => {
     setAnchorEl(null);
     setOpen((prev) => !prev);
     dispatch(logoutUser({ loggedIn: false }));
+    dispatch(emptyCart());
     enqueueSnackbar(`Successfully Logged Off`, {
       variant: "success",
     });
@@ -80,6 +82,25 @@ const Navbar = () => {
             if (disableInNavbar) {
               return true;
             }
+            if (label === "Cart") {
+              return (
+                <Grid item>
+                  <Button
+                    color={location.pathname === path ? "primary" : "secondary"}
+                    onClick={() => handleRouteChange(path)}
+                  >
+                    <Badge
+                      badgeContent={itemsCount}
+                      color={
+                        location.pathname === path ? "primary" : "secondary"
+                      }
+                    >
+                      <ShoppingCartIcon />
+                    </Badge>
+                  </Button>
+                </Grid>
+              );
+            }
             return (
               <Grid item>
                 <Button
@@ -96,27 +117,6 @@ const Navbar = () => {
               {privateRouteList.map(({ path, label, disableInNavbar }) => {
                 if (disableInNavbar) {
                   return true;
-                }
-                if (label === "Cart") {
-                  return (
-                    <Grid item>
-                      <Button
-                        color={
-                          location.pathname === path ? "primary" : "secondary"
-                        }
-                        onClick={() => handleRouteChange(path)}
-                      >
-                        <Badge
-                          badgeContent={itemsCount}
-                          color={
-                            location.pathname === path ? "primary" : "secondary"
-                          }
-                        >
-                          <ShoppingCartIcon />
-                        </Badge>
-                      </Button>
-                    </Grid>
-                  );
                 }
                 return (
                   <Grid item>

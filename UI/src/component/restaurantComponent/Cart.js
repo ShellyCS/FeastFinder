@@ -6,6 +6,8 @@ import { emptyCart, removeItem } from "../../utils/slices/cartsSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { Button, Grid } from "@mui/material";
+import { postRequest } from "../../api";
+import { logoutUser } from "../../utils/slices/UserSlice";
 
 const Cart = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -13,6 +15,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const [price, setPrice] = useState(0);
   const navigate = useNavigate();
+  const token = useSelector((state) => state.user.token);
 
   useEffect(() => {
     let price = 0;
@@ -37,10 +40,40 @@ const Cart = () => {
     navigate(-1);
   };
 
-  const handleBuyNow = () => {
-    enqueueSnackbar(`Order Has been placed`, {
-      variant: "success",
-    });
+  const handleBuyNow = async () => {
+    console.log({ cartItems });
+    if (!token) {
+      enqueueSnackbar(`Please Login `, {
+        variant: "error",
+      });
+      navigate("/login");
+      return;
+    } else {
+      const response = await postRequest({
+        currentRoute: "/orders/createOrder",
+        method: "POST",
+        headers: { "Content-Type": "application/json", authorization: token },
+        body: {
+          cartItems: cartItems,
+        },
+      });
+
+      if (response.error) {
+        if (response?.message === "Unauthorized access") {
+          dispatch(logoutUser({ loggedIn: false }));
+          dispatch(emptyCart());
+          enqueueSnackbar(`Please Login `, {
+            variant: "error",
+          });
+        } else {
+          enqueueSnackbar(response.error, { variant: "error" });
+        }
+      } else {
+        enqueueSnackbar(response.statusText, { variant: "success" });
+        dispatch(emptyCart());
+        navigate("/myOrders");
+      }
+    }
   };
 
   return (

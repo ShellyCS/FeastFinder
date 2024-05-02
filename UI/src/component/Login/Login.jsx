@@ -14,6 +14,7 @@ import { loginUser, logoutUser } from "../../utils/slices/UserSlice";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import GoogleIcon from "@mui/icons-material/Google";
+import { emptyCart } from "../../utils/slices/cartsSlice";
 const Login = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ const Login = () => {
     if (data.error) {
       enqueueSnackbar(data.error, { variant: "error" });
       dispatch(logoutUser({ loggedIn: false }));
+      dispatch(emptyCart());
     } else if (data.token) {
       enqueueSnackbar(`Welcome ${data.firstName} ${data.lastName}`, {
         variant: "success",
@@ -51,7 +53,11 @@ const Login = () => {
           email: data.email,
         })
       );
-      navigate("/");
+      if (navigate && navigate._state?.index > 0) {
+        navigate(-1);
+      } else {
+        navigate("/");
+      }
     }
   };
 

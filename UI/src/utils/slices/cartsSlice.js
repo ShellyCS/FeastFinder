@@ -1,13 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const loadCartFromStorage = () => {
+  try {
+    const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    return cartItems;
+  } catch (error) {
+    console.error("Error loading cart from localStorage:", error);
+    return [];
+  }
+};
+
 const cartsSlice = createSlice({
   name: "cart",
   initialState: {
-    items: [],
+    items: loadCartFromStorage(),
   },
   reducers: {
     addItems: (state, action) => {
       state.items.push(action.payload);
+      localStorage.setItem("cartItems", JSON.stringify(state.items));
     },
     removeItem: (state, action) => {
       const currentDishId = action.payload.dishId;
@@ -17,6 +28,7 @@ const cartsSlice = createSlice({
           dishId === currentDishId && currentRestaurantId === restaurantId
       );
       state.items.splice(index, 1);
+      localStorage.setItem("cartItems", JSON.stringify(state.items));
     },
     updateItem: (state, action) => {
       const currentDishId = action.payload.dishId;
@@ -36,9 +48,11 @@ const cartsSlice = createSlice({
       console.log({ initialItems });
       const finalValues = initialItems.concat([action.payload]);
       state.items = finalValues;
+      localStorage.setItem("cartItems", JSON.stringify(state.items));
     },
     emptyCart: (state) => {
       state.items.length = 0;
+      localStorage.removeItem("cartItems");
     },
   },
 });

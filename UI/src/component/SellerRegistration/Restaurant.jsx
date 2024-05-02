@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useSnackbar } from "notistack";
 import { logoutUser } from "../../utils/slices/UserSlice";
+import { emptyCart } from "../../utils/slices/cartsSlice";
 const Restaurant = ({ handleChangeTab }) => {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
@@ -73,6 +74,7 @@ const Restaurant = ({ handleChangeTab }) => {
         !restaurant.restaurant_image
       ) {
         dispatch(logoutUser({ loggedIn: false }));
+        dispatch(emptyCart());
       } else if (response.id || restaurant.restaurant_image) {
         if (response.message) {
           toast.info(response.message);

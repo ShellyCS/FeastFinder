@@ -12,6 +12,7 @@ import { useSnackbar } from "notistack";
 import { mainRoute, postRequest } from "../../api";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../utils/slices/UserSlice";
+import { emptyCart } from "../../utils/slices/cartsSlice";
 
 const DishesRegistration = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -87,6 +88,7 @@ const DishesRegistration = () => {
 
             if (response.message === "Unauthorized access") {
               dispatch(logoutUser({ loggedIn: false }));
+              dispatch(emptyCart());
               throw new Error("Unauthorized access");
             } else if (response.id) {
               return response.id;
@@ -160,6 +162,7 @@ const DishesRegistration = () => {
       });
       if (data?.message === "Unauthorized access") {
         dispatch(logoutUser({ loggedIn: false }));
+        dispatch(emptyCart());
       } else if (Array.isArray(data.dishes) && data.dishes.length > 0) {
         setDishes(
           data.dishes.map(({ isVeg, ...rest }) => ({ ...rest, isVeg: !!isVeg }))
