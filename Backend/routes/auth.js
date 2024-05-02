@@ -24,7 +24,7 @@ router.post("/login", async (req, res) => {
     const [results] = await db.query("SELECT * FROM users WHERE email = ?", [
       email,
     ]);
-    if (results[0].Email !== email) {
+    if (results[0]?.Email !== email) {
       return res.status(401).json({ error: "Email Doesn't Exist" });
     }
 

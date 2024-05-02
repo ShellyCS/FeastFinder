@@ -9,9 +9,8 @@ const useDishes = (id) => {
 
   async function getDishes() {
     let arr = [];
-    const data = await fetch("http://localhost:8081/dishes");
+    const data = await fetch("http://localhost:8081/dishes" + `/${id}`);
     const json = await data.json();
-    console.log(json);
     json.filter((data) => {
       if (data.restaurantId === +id) {
         arr.push(data);

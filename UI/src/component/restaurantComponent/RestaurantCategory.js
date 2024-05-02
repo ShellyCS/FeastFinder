@@ -38,7 +38,6 @@ const Section = ({ info }) => {
         ({ restaurantId, dishId }) =>
           restaurantId === item.restaurantId && dishId === item.dishId
       ) || {};
-    console.log({ itemExist });
     if (itemExist.restaurantId) {
       dispatch(updateItem({ ...item, count: itemExist.count + 1 }));
     } else {
@@ -84,10 +83,18 @@ const Section = ({ info }) => {
                     flexDirection={"column"}
                   >
                     <Grid item>
-                      <img
-                        src={IMG_CDN_URL + card.imageId}
-                        className="relative z-0  h-20 object-fill"
-                      />
+                      {card?.base64Image ? (
+                        <img
+                          className="relative z-0  h-20 object-fill"
+                          alt="restaurant img"
+                          src={`data:image/jpeg;base64,${card?.base64Image}`}
+                        />
+                      ) : (
+                        <img
+                          src={IMG_CDN_URL + card.imageId}
+                          className="relative z-0  h-20 object-fill"
+                        />
+                      )}
                     </Grid>
 
                     <Grid item>
