@@ -54,20 +54,18 @@ const Cart = () => {
         method: "POST",
         headers: { "Content-Type": "application/json", authorization: token },
         body: {
-          cartItems: cartItems,
+          cartItems: cartItems.map(({ base64Image, ...dish }) => ({ ...dish })),
         },
       });
-
+      console.log({ response });
       if (response.error) {
-        if (response?.message === "Unauthorized access") {
-          dispatch(logoutUser({ loggedIn: false }));
-          dispatch(emptyCart());
-          enqueueSnackbar(`Please Login `, {
-            variant: "error",
-          });
-        } else {
-          enqueueSnackbar(response.error, { variant: "error" });
-        }
+        enqueueSnackbar(response.error, { variant: "error" });
+      } else if (response?.message === "Unauthorized access") {
+        enqueueSnackbar("Please Login ", {
+          variant: "error",
+        });
+        dispatch(logoutUser({ loggedIn: false }));
+        dispatch(emptyCart());
       } else {
         enqueueSnackbar(response.statusText, { variant: "success" });
         dispatch(emptyCart());
