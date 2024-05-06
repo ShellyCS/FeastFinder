@@ -100,7 +100,7 @@ const DishesRegistration = () => {
           return dish.imageId;
         })
       );
-      const updatedDishes = dishes.map((dish, index) => {
+      const updatedDishes = dishes.map(({ base64Image, ...dish }, index) => {
         if (uploadedImages[index]) {
           return { ...dish, imageId: uploadedImages[index] };
         }

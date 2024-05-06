@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, CircularProgress } from "@mui/material";
 import { mainRoute } from "../../api";
 import { useSelector } from "react-redux";
 import { IMG_CDN_URL } from "../body/config";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const MyOrders = () => {
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true); // State to track loading status
   const token = useSelector((state) => state.user.token);
   const navigate = useNavigate();
 
@@ -19,31 +20,29 @@ const MyOrders = () => {
             "Content-Type": "application/json",
             authorization: token,
           },
-        })
-          .then((response) => {
-            return response.json();
-          })
-          .catch((error) => {
-            return {
-              error: true,
-              message: error.message,
-            };
-          });
-        if (response.orders) {
-          setOrders(response.orders);
+        });
+        const data = await response.json();
+        if (data.orders) {
+          setOrders(data.orders);
         }
       } catch (error) {
         console.error("Error fetching orders:", error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching
       }
     };
 
     fetchOrders();
   }, [token]);
-  console.log({ orders });
 
   const backfunc = () => {
     navigate(-1);
   };
+
+  // Sort orders by orderDate in descending order to show latest orders first
+  const sortedOrders = orders
+    .slice()
+    .sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
 
   return (
     <>
@@ -71,7 +70,11 @@ const MyOrders = () => {
           </Typography>
         </Grid>
         <Grid item xs={10}>
-          {orders.length === 0 ? (
+          {loading ? ( // Show loading spinner while fetching orders
+            <Grid container justifyContent="center">
+              <CircularProgress />
+            </Grid>
+          ) : sortedOrders.length === 0 ? (
             <Typography
               variant="h1"
               color="textSecondary"
@@ -81,7 +84,7 @@ const MyOrders = () => {
             </Typography>
           ) : (
             <Grid container spacing={2}>
-              {orders.map((order) => (
+              {sortedOrders.map((order) => (
                 <Grid item xs={12} key={order.orderId}>
                   <Grid
                     container

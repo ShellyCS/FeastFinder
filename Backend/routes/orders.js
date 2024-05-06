@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../database/db");
 const verifyToken = require("./verification");
+const convertBlobToBuffer = require("../utils/convertBlobToBuffer");
 
 router.post("/createOrder", verifyToken, async (req, res) => {
   try {
@@ -72,7 +73,8 @@ router.get("/myOrders", verifyToken, async (req, res) => {
         "SELECT * FROM OrderDetails WHERE orderId = ?",
         [order.orderId]
       );
-      console.log({ order, orderDetails });
+      const final_Orders = await convertBlobToBuffer(orderDetails, "imageId");
+      console.log({ order, orderDetails: final_Orders });
       order.details = orderDetails;
     }
     console.log({ orders });

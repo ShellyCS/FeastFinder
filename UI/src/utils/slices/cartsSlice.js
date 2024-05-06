@@ -18,7 +18,12 @@ const cartsSlice = createSlice({
   reducers: {
     addItems: (state, action) => {
       state.items.push(action.payload);
-      localStorage.setItem("cartItems", JSON.stringify(state.items));
+      localStorage.setItem(
+        "cartItems",
+        JSON.stringify(
+          state.items.map(({ base64Image, ...dish }) => ({ ...dish }))
+        )
+      );
     },
     removeItem: (state, action) => {
       const currentDishId = action.payload.dishId;
@@ -28,7 +33,12 @@ const cartsSlice = createSlice({
           dishId === currentDishId && currentRestaurantId === restaurantId
       );
       state.items.splice(index, 1);
-      localStorage.setItem("cartItems", JSON.stringify(state.items));
+      localStorage.setItem(
+        "cartItems",
+        JSON.stringify(
+          state.items.map(({ base64Image, ...dish }) => ({ ...dish }))
+        )
+      );
     },
     updateItem: (state, action) => {
       const currentDishId = action.payload.dishId;
@@ -48,7 +58,12 @@ const cartsSlice = createSlice({
       console.log({ initialItems });
       const finalValues = initialItems.concat([action.payload]);
       state.items = finalValues;
-      localStorage.setItem("cartItems", JSON.stringify(state.items));
+      localStorage.setItem(
+        "cartItems",
+        JSON.stringify(
+          state.items.map(({ base64Image, ...dish }) => ({ ...dish }))
+        )
+      );
     },
     emptyCart: (state) => {
       state.items.length = 0;
