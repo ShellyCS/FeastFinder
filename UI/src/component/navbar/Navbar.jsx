@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Fade from "@mui/material/Fade";
@@ -15,7 +15,7 @@ import {
   publicRoutes,
 } from "../../routes/routelist";
 import { logoutUser } from "../../utils/slices/UserSlice";
-import logo from "../../assets/applogo.png";
+import logo from "../../assets/logo-png.png";
 import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { emptyCart } from "../../utils/slices/cartsSlice";

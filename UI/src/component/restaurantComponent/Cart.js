@@ -79,7 +79,7 @@ const Cart = () => {
   return (
     <div className="w-[80%] mx-auto h-screen">
       <button
-        className="z-10 top-14 translate-x-[70%] bg-white px-3 py-2 text-md font-medium shadow-md rounded-md hover:bg-gray-100 border-transparent rounded"
+        className="text-white bg-orange-500 px-4 py-2 rounded-lg hover:bg-orange-600"
         onClick={backfunc}
       >
         Back
@@ -93,7 +93,7 @@ const Cart = () => {
           <div className="flex flex-col md:flex-row md:justify-between md:items-center">
             <h1 className="text-2xl font-bold my-4">Shopping Cart</h1>
             <button
-              className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
+              className="text-white bg-orange-500 py-2 px-4 rounded-lg hover:bg-orange-600"
               onClick={() => clearCart()}
             >
               Clear Cart

@@ -175,7 +175,7 @@ const DishesRegistration = () => {
     <Grid container spacing={2} justifyContent={"center"}>
       <Grid item xs={12}>
         <Typography variant="h6" color={"primary"}>
-          Let's Beggin Dish registration
+          Let's Begin Dish registration
         </Typography>
       </Grid>
       {dishes.map((dish, index) => (

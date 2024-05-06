@@ -138,8 +138,8 @@ const Restaurant = ({ handleChangeTab }) => {
       <Grid item xs={12}>
         <Typography variant="h6" color={"primary"}>
           {!restaurant.isAlreadyASeller
-            ? "Let's Beggin Restuarant registration"
-            : "Modify your restuarant"}
+            ? "Let's Begin Restaurant registration"
+            : "Modify your restaurant"}
         </Typography>
       </Grid>
       <Grid item xs={11}>
