@@ -1,5 +1,11 @@
+-- Drop the database if it exists
+DROP DATABASE IF EXISTS food_db;
+
 -- Create the database
 CREATE DATABASE IF NOT EXISTS food_db;
+
+-- Use the database
+USE food_db;
 
 -- Creating restaurants table
 CREATE TABLE IF NOT EXISTS restaurants (
