@@ -34,7 +34,7 @@ cd Tummy-Filling-Station
 
 ```
 
-3. Install dependencies in Backend Folder:
+3. Create DB and Install dependencies in Backend Folder:
 
 ```bash
 cd Backend
