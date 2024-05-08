@@ -38,7 +38,7 @@ cd Tummy-Filling-Station
 
 ```bash
 cd Backend
-npm install
+npm run create-db && npm install
 
 ```
 
