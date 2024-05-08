@@ -11,20 +11,13 @@ import car6 from "../../assets/car6.jpg";
 const Carousel = () => {
   const data = [
     {
+      title: "Car1",
       imageUrl: car1,
     },
-    {
-      imageUrl: car2,
-    },
-    {
-      imageUrl: car4,
-    },
-    {
-      imageUrl: car5,
-    },
-    {
-      imageUrl: car6,
-    },
+    { title: "Car2", imageUrl: car2 },
+    { title: "Car4", imageUrl: car4 },
+    { title: "Car5", imageUrl: car5 },
+    { title: "Car6", imageUrl: car6 },
   ];
 
   const settings = {
@@ -46,7 +39,7 @@ const Carousel = () => {
               key={d.title}
               className="bg-white h-[450px] text-black rounded-xl"
             >
-              <img src={d.imageUrl} alt="" className="" />
+              <img src={d.imageUrl} alt="" />
             </div>
           ))}
         </Slider>
