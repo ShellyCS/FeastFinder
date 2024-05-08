@@ -30,7 +30,7 @@ git clone https://github.com/ShellyCS/Tummy-Filling-Station.git
 2. Navigate to the project directory:
 
 ```bash
-cd tummy-filling-station
+cd Tummy-Filling-Station
 
 ```
 
