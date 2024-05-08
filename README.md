@@ -74,7 +74,9 @@ npm run start
 - Tailwind for styling
 - Firebase for Google authentication
 - bcryptjs for encrypting the password
-- jsonwebtoken for secure transmission of information and user authentication in the application.
+- jsonwebtoken for secure transmission of information and user authentication in the application
+- mySQL for storing data in database in relational format
+- express JS simplifying building web applications and APIs in Node.js
 
 
 
