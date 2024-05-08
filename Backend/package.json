@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run create-db && nodemon server.js",
+    "start": "nodemon server.js",
     "create-db": "mysql -u root -p1234 < sqlCode.sql"
   },
   "keywords": [],
