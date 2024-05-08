@@ -68,15 +68,15 @@ npm run start
 
 ## Technologies Used
 
-- React v18
-- React Router
-- Redux for state management
-- Tailwind for styling
-- Firebase for Google authentication
-- bcryptjs for encrypting the password
-- jsonwebtoken for secure transmission of information and user authentication in the application
-- mySQL for storing data in database in relational format
-- express JS simplifying building web applications and APIs in Node.js
+- **React v18** providing a powerful and efficient way to build UIs for web applications, enabling developers to create interactive, fast, and maintainable user interfaces
+- **React Router** for navigating through different component screens
+- **Redux** for state management
+- **Tailwind** for styling
+- **Firebase** for Google authentication
+- **bcryptjs** for encrypting the password
+- **jsonwebtoken** for secure transmission of information and user authentication in the application
+- **mySQL** for storing data in database in relational format
+- **express JS** simplifying building web applications and APIs in Node.js
 
 
 
