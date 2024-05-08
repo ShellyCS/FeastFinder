@@ -23,7 +23,7 @@ To run Tummy Filling Station locally, follow these steps:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/ShellyCS/FeastFinder.git
+git clone https://github.com/ShellyCS/Tummy-Filling-Station.git
 
 ```
 
