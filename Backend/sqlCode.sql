@@ -173,8 +173,6 @@ CREATE TABLE IF NOT EXISTS Dishes (
 (42, 30183, 'Mutton Pulao With Bone', 'A delectable main course prepared by cooking tender mutton pieces and rice in a flavor-packed masala.', 855.00, FALSE, 'a5391750f4cba69a78dfe7f8bff18161', 'Rice and Biryani');
 
 
-
-
 CREATE TABLE IF NOT EXISTS userASSeller (
     userId INT AUTO_INCREMENT PRIMARY KEY,
     restaurantId INT,
