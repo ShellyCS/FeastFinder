@@ -108,7 +108,11 @@ VALUES
 (728722, 'Desserts'),
 (728722, 'Beverages'),
 (32291, 'CCD Cricket League'),
-(32291, 'Celebration Cake');
+(32291, 'Celebration Cake'),
+(23954, 'Group Party Combos'),
+(23954, 'North Indian Curries'),
+(30183, 'Main Course'),
+(30183, 'Rice and Biryani');
 
 
 
@@ -158,7 +162,17 @@ CREATE TABLE IF NOT EXISTS Dishes (
 (31,  728722, 'Mexican Wave Pizza', 'Serves 1 | Our signature pizza crust loaded with Classic Mozzarella Cheese + Cheddar Cheese + Onion + Capsicum + Tomato + Jalapeno', 0.00, 1, 'FOOD_CATALOG/IMAGES/CMS/2024/3/12/522cff1f-31e0-4731-8d26-2da52fc49b26_862961c4-0a69-4532-9da5-100f1e27655a.jpg_compressed', 'Recommended'),
 (32, 32291, 'King Latte', 'Serves 1 | Light, hot coffee, with 2 shots of espresso in steamed milk., Serving Size(gm/ml) - 350, Energy (kcal) - 184.66 Contains Milk', 169.00, 1, 'evcgfuy8ticij45vcgsb', 'CCD Cricket League'),
 (33, 32291, 'Crunchy Frappe', 'Serves 1 | Some eat an oreo. Some dunk it. Some frappe it and do both`257 (350ml | 541.59kcal)', 319.00, 1, 'pey3ddrzxnkrzrq0mwnd', 'CCD Cricket League'),
-(34, 32291, 'Dutch Truffle Cake (730 g)', 'Serves 4 | Tangy orange flavored, creamy truffle topped, delightful cocoa cake laced with a delicious ganache glaze. Serving Size(gm/ml) - 100, Energy (kcal) - 366.25 , Contains Gluten, Contains Milk, Contains Soy', 699.00, 1, 'nywbsgs2koiovpekqeyw', 'Celebration Cake');
+(34, 32291, 'Dutch Truffle Cake (730 g)', 'Serves 4 | Tangy orange flavored, creamy truffle topped, delightful cocoa cake laced with a delicious ganache glaze. Serving Size(gm/ml) - 100, Energy (kcal) - 366.25 , Contains Gluten, Contains Milk, Contains Soy', 699.00, 1, 'nywbsgs2koiovpekqeyw', 'Celebration Cake'),
+(35, 23954, 'Royal Jashn Combo (Non-Veg) (Serves 3-4)', 'Here''s the special murgh daawat you were looking for! Enjoy your choice of royal biryani, newly launched curries and breads. Make it truly shaandaar by adding your favourite kebabs and beverages to the spread.', 1319.00, FALSE, 'b6bf9ce87d0695016f80d7bbb7796985', 'Group Party Combos'),
+(36, 23954, 'Royal Veg Biryani Party Combo for 4-5', 'Create your Party Combo with choice of 2 portions of Royal Veg Shaan Biryanis (Serves 2 each). It is accompanied with fresh Mint Raita and Gulab Jamuns to make your celebration more special.', 1105.00, TRUE, '7a35e1ba9a21c89488ae0d584a33c414', 'Group Party Combos'),
+(37, 23954, 'Paneer Makhani', 'Relish this mildly sweet curry of tender paneer with an aromatic blend of kaju, fresh tomatoes, sliced onions and shahi masalas. Make the most of this Punjabi peshkash with your favourite biryanis & breads!', 279.00, TRUE, '436d094318e2ecbf77e998506c3d9025', 'North Indian Curries'),
+(38, 23954, 'Royal Murgh Curry Combo (Serves 1)', 'Brighten your daawat with this North Indian spread of delicious murgh curry and a bread of your choice! Elevate this royal experience with a refreshing beverage.', 369.00, FALSE, 'FOOD_CATALOG/IMAGES/CMS/2024/4/4/e82d7d80-0341-4bfa-ae70-38ff51ad3125_17af8413-5c9f-4e30-8eab-0c934a9108de.jpeg', 'North Indian Curries'),
+(39, 30183, 'Chicken Nawabi Masala (500 Ml)', 'Creamy based nawabi gravy made from minced chicken and indian masalas.', 535.00, FALSE, 'Main Course'),
+(40, 30183, 'Pomfret Masala 1 Pcs 125 Gms', 'An irresistibly delicious preparation with fresh pomfret simmered in a rich and thick gravy seasoned with mild spices.', 625.00, FALSE, '1918a06a29a79d7bdbea98a378b6846e', 'Main Course'),
+(41, 30183, 'Veg Pulao', 'Preparation by cooking chopped vegetables and rice in a flavor-packed masala.', 525.00, TRUE, 'ee4b035bc9338328f69b8dbde1c68b79', 'Rice and Biryani'),
+(42, 30183, 'Mutton Pulao With Bone', 'A delectable main course prepared by cooking tender mutton pieces and rice in a flavor-packed masala.', 855.00, FALSE, 'a5391750f4cba69a78dfe7f8bff18161', 'Rice and Biryani');
+
+
 
 
 CREATE TABLE IF NOT EXISTS userASSeller (
